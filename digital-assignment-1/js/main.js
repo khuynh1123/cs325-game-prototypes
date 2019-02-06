@@ -42,7 +42,7 @@ window.onload = function() {
 		
 		
 		// Cat animation
-		player.animations.add('idle', Phaser.Animation.generateFrameNames("playerIdle",
+		player.animations.add('idle', [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]);
         
         // Add some text using a CSS style.
         // Center it in X, and position its top 15 pixels from the top of the world.
