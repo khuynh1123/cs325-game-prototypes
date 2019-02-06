@@ -3,8 +3,7 @@
 This repository contains all of your games as well as a few simple "hello, world!"
 templates for a game made with Phaser.
 This repository should be marked as GitHub Pages. This lets you run your games directly from github!
-Check it out: [http://gmu-cs325.github.io/cs325-game-prototypes/](http://gmu-cs325.github.io/cs325-game-prototypes/)
-Fork this repository and start making your own games!
+Check it out: [https://khuynh1123.github.io/cs325-game-prototypes/](https://khuynh1123.github.io/cs325-game-prototypes/)
 
 You can't run the `index.html` for a Phaser game directly from your local machine without a local webserver.
 If you try, the images won't load (your browser will prevent it, thinking it is malicious).
