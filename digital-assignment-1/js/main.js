@@ -38,23 +38,34 @@ window.onload = function() {
 		
 		cursors = game.input.keyboard.createCursorKeys();
 		
-		game.camera.follow(player, Phaser.camera.FOLLOW_LOCKON, 0.1, 0.1);
+		game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 		
 		
 		// Cat animation
-		player.animations.add('idle', [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]);
-        
-        // Add some text using a CSS style.
-        // Center it in X, and position its top 15 pixels from the top of the world.
-        var style = { font: "100px Verdana", fill: "#ffffff", align: "center" };
-        var text = game.add.text( game.world.centerX, 15, "Build something amazing.", style );
-        text.anchor.setTo( 0.5, 0.0 );
+		player.animations.add("idle", [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]);
+		player.animations.add("walk", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+		
+		
+		player.animations.play("idle", 10, true);
+		
+	
     }
     
     function update() {
 		
 		player.body.setZeroVelocity();
 		
+		
+		if (cursors.up.isDown) {
+			player.body.moveUp(100);
+		}
+		
+		if (cursors.left.isDown) {
+			player.body.moveLeft(100);
+		}
+		else if (cursors.right.isDown) {
+			player.body.moveRight(100);
+		}
     }
 	
 	function render() {
