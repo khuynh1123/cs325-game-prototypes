@@ -13,37 +13,51 @@ window.onload = function() {
 	
 	
 	
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update, render: render} );
+    const game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update, render: render} );
     
     function preload() {
         // Load an image and call it 'logo'.
-        game.load.spritesheet("cat", "assets/cat.png", 640, 640);
-		
-		//game.load.tilemap("map_1", "assets/tilemap_1.json", null, Phaser.Tilemap.TILED_JSON);
-		game.load.image("background", "assets/background.png");
+        game.load.spritesheet("player", "assets/cat.png", 640, 640);
+		game.load.image("maptiles", "assets/platformtilesheet.png");
+		game.load.tilemap("level1", "assets/tilemap_1.json", null, Phaser.Tilemap.TILED_JSON);
     }
-    
+	
+	var backgroundLayer;
+	var cursors;
+	var foregroundLayer;
 	var map;
 	var player;
-	var cursors;
+	
 	
     function create() {
 		
 		// World setup
 		game.world.setBounds(0, 0, 1920, 1080);
-		game.physics.startSystem(Phaser.Physics.P2JS);
+		game.physics.startSystem(Phaser.Physics.Arcade);
 		
-		map = game.add.tilemap("map_1");
+		
+		// Tilemap setup
+		map = game.add.tilemap("level1");
+		map.addTilesetImage("platforms", "maptiles");
+		
+		backgroundLayer = map.createLayer("background");
+		foregroundLayer = map.createLayer("foreground");
+		map.setCollisionByExclusion([6], true, foregroundLayer);
+		
 		
 		// Player setup
-		player = game.add.sprite(300, 100, "cat");
+		player = game.add.sprite(100, game.world.height10, "player");
 		player.scale.setTo(.25, .25);
+		player.anchor.setTo(.5, .5);
 		
-		game.physics.p2.enable(player);
+		game.physics.enable(player);
+		player.body.gravity.y = 200;
 		
+		player.body.collideWorldBounds = true;
 		player.body.fixedRotation = true;
 		
-		game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+		game.physics.arcade.collide(player, foregroundLayer);
+		game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.05, 0.05);
 		
 		// Input setup
 		cursors = game.input.keyboard.createCursorKeys();
@@ -51,29 +65,33 @@ window.onload = function() {
 		
 		
 		// Cat animation
-		player.animations.add("idle", [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]);
-		player.animations.add("walk", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
-		
-		
-		player.animations.play("idle", 10, true);
+		player.animations.add("idle", [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], 10, true);
+		player.animations.add("walk", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,], 10, true);
 		
 	
     }
     
     function update() {
 		
-		player.body.setZeroVelocity();
+		player.body.velocity.x = 0;
+		if (!(cursors.up.isDown) && !(cursors.down.isDown) && !(cursors.left.isDown) && (!cursors.right.isDown)) {
+			player.animations.play("idle", 10, true);
+		}
 		
-		
-		if (cursors.up.isDown) {
-			player.body.moveUp(150);
+		if (cursors.up.isDown && player.body.onFloor()) {
+			player.body.velocity.y = -200;
 		}
 		
 		if (cursors.left.isDown) {
-			player.body.moveLeft(150);
+			player.scale.x = -.25;
+			player.animations.play("walk", 10, true);
+			player.body.velocity.x = -150;
+			
 		}
 		else if (cursors.right.isDown) {
-			player.body.moveRight(150);
+			player.scale.x = .25;
+			player.animations.play("walk", 10, true);
+			player.body.velocity.x = 150;
 		}
     }
 	
