@@ -13,20 +13,22 @@ window.onload = function() {
 	
 	
 	
-    const game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update, render: render} );
+    const game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update} );
     
     function preload() {
         // Load an image and call it 'logo'.
         game.load.spritesheet("player", "assets/cat.png", 640, 640);
+		//game.load.image("background", "assets/background_big.png");
+		game.load.tilemap("map", "assets/tilemap_1.json", null, Phaser.Tilemap.TILED_JSON);
 		game.load.image("maptiles", "assets/platformtilesheet.png");
-		game.load.tilemap("level1", "assets/tilemap_1.json", null, Phaser.Tilemap.TILED_JSON);
+		game.load.image("tuna", "assets/tuna.png");
     }
 	
-	var backgroundLayer;
 	var cursors;
-	var foregroundLayer;
+	var layer;
 	var map;
 	var player;
+	var tuna;
 	
 	
     function create() {
@@ -37,16 +39,17 @@ window.onload = function() {
 		
 		
 		// Tilemap setup
-		map = game.add.tilemap("level1");
-		map.addTilesetImage("platforms", "maptiles");
+		map = game.add.tilemap("map");
+		map.addTilesetImage("platformtilesheet", "maptiles");
 		
-		backgroundLayer = map.createLayer("background");
-		foregroundLayer = map.createLayer("foreground");
-		map.setCollisionByExclusion([6], true, foregroundLayer);
+		// problem v
+		layer = map.createLayer("ground");
+		layer.resizeWorld();
+		map.setCollisionByExclusion([6], true, layer);
 		
 		
 		// Player setup
-		player = game.add.sprite(100, game.world.height10, "player");
+		player = game.add.sprite(200, game.world.height - 200, "player");
 		player.scale.setTo(.25, .25);
 		player.anchor.setTo(.5, .5);
 		
@@ -56,7 +59,10 @@ window.onload = function() {
 		player.body.collideWorldBounds = true;
 		player.body.fixedRotation = true;
 		
-		game.physics.arcade.collide(player, foregroundLayer);
+		tuna = game.add.physicsGroup();
+		map.createFromObjects("objects", "tuna", "tuna");
+		
+		game.physics.arcade.collide(player, layer);
 		game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.05, 0.05);
 		
 		// Input setup
@@ -74,28 +80,25 @@ window.onload = function() {
     function update() {
 		
 		player.body.velocity.x = 0;
-		if (!(cursors.up.isDown) && !(cursors.down.isDown) && !(cursors.left.isDown) && (!cursors.right.isDown)) {
-			player.animations.play("idle", 10, true);
-		}
 		
-		if (cursors.up.isDown && player.body.onFloor()) {
+		if (cursors.up.isDown && player.body.touching.down) {
 			player.body.velocity.y = -200;
-		}
-		
-		if (cursors.left.isDown) {
+		} else if (cursors.left.isDown) {
 			player.scale.x = -.25;
 			player.animations.play("walk", 10, true);
 			player.body.velocity.x = -150;
-			
-		}
-		else if (cursors.right.isDown) {
+		} else if (cursors.right.isDown) {
 			player.scale.x = .25;
 			player.animations.play("walk", 10, true);
 			player.body.velocity.x = 150;
+		} else {
+			player.animations.play("idle", 10, true);
 		}
+		
+		game.physics.arcade.overlap(player, tuna, tunaCollect, null, this);
     }
 	
-	function render() {
-		
+	function tunaCollect(player, tuna) {
+		tuna.kill();
 	}
 };
