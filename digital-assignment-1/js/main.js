@@ -13,17 +13,17 @@ window.onload = function() {
 	
 	
 	
-    const game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update} );
+    const game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update, render: render} );
     
     function preload() {
         // Load an image and call it 'logo'.
-        game.load.spritesheet("player", "assets/cat.png", 640, 640);
-		//game.load.image("background", "assets/background_big.png");
+        game.load.spritesheet("player", "assets/cat.png", 70, 55);
 		game.load.tilemap("map", "assets/tilemap_1.json", null, Phaser.Tilemap.TILED_JSON);
 		game.load.image("maptiles", "assets/platformtilesheet.png");
 		game.load.image("tuna", "assets/tuna.png");
     }
 	
+	var background;
 	var cursors;
 	var layer;
 	var map;
@@ -37,7 +37,6 @@ window.onload = function() {
 		game.world.setBounds(0, 0, 1920, 1080);
 		game.physics.startSystem(Phaser.Physics.Arcade);
 		
-		
 		// Tilemap setup
 		map = game.add.tilemap("map");
 		map.addTilesetImage("platformtilesheet", "maptiles");
@@ -45,16 +44,16 @@ window.onload = function() {
 		// problem v
 		layer = map.createLayer("ground");
 		layer.resizeWorld();
-		map.setCollisionByExclusion([6], true, layer);
+		map.setCollisionBetween(0, 5);
+		map.setCollisionBetween(7, 15);
 		
 		
 		// Player setup
 		player = game.add.sprite(200, game.world.height - 200, "player");
-		player.scale.setTo(.25, .25);
+		game.physics.enable(player);
 		player.anchor.setTo(.5, .5);
 		
-		game.physics.enable(player);
-		player.body.gravity.y = 200;
+		player.body.gravity.y = 400;
 		
 		player.body.collideWorldBounds = true;
 		player.body.fixedRotation = true;
@@ -62,7 +61,6 @@ window.onload = function() {
 		tuna = game.add.physicsGroup();
 		map.createFromObjects("objects", "tuna", "tuna");
 		
-		game.physics.arcade.collide(player, layer);
 		game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.05, 0.05);
 		
 		// Input setup
@@ -79,18 +77,21 @@ window.onload = function() {
     
     function update() {
 		
+		
+		
+		game.physics.arcade.collide(player, layer);
 		player.body.velocity.x = 0;
 		
-		if (cursors.up.isDown && player.body.touching.down) {
-			player.body.velocity.y = -200;
+		if (cursors.up.isDown && player.body.onFloor()) {
+			player.body.velocity.y = -300;
 		} else if (cursors.left.isDown) {
-			player.scale.x = -.25;
+			player.scale.x = -1;
 			player.animations.play("walk", 10, true);
-			player.body.velocity.x = -150;
+			player.body.velocity.x = -175;
 		} else if (cursors.right.isDown) {
-			player.scale.x = .25;
+			player.scale.x = 1;
 			player.animations.play("walk", 10, true);
-			player.body.velocity.x = 150;
+			player.body.velocity.x = 175;
 		} else {
 			player.animations.play("idle", 10, true);
 		}
@@ -100,5 +101,11 @@ window.onload = function() {
 	
 	function tunaCollect(player, tuna) {
 		tuna.kill();
+	}
+	
+	function render() {
+		
+		game.debug.spriteBounds(player);
+		game.debug.spriteInfo(player, 160, 160);
 	}
 };
