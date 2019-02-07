@@ -13,7 +13,7 @@ window.onload = function() {
 	
 	
 	
-    const game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update, render: render} );
+    const game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update} );
     
     function preload() {
         // Load an image and call it 'logo'.
@@ -21,9 +21,11 @@ window.onload = function() {
 		game.load.tilemap("map", "assets/tilemap_1.json", null, Phaser.Tilemap.TILED_JSON);
 		game.load.image("maptiles", "assets/platformtilesheet.png");
 		game.load.image("tuna", "assets/tuna.png");
+		game.load.audio("crunch", "assets/crunch.mp3");
     }
 	
 	var background;
+	var crunch;
 	var cursors;
 	var layer;
 	var map;
@@ -58,8 +60,10 @@ window.onload = function() {
 		player.body.collideWorldBounds = true;
 		player.body.fixedRotation = true;
 		
-		tuna = game.add.physicsGroup();
-		map.createFromObjects("objects", "tuna", "tuna");
+		tuna = game.add.group();
+		tuna.enableBody = true;
+		
+		map.createFromObjects("objects", "tuna", "tuna", null, true, false, tuna);
 		
 		game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.05, 0.05);
 		
@@ -72,6 +76,8 @@ window.onload = function() {
 		player.animations.add("idle", [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], 10, true);
 		player.animations.add("walk", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,], 10, true);
 		
+		
+		crunch = game.add.audio("crunch");
 	
     }
     
@@ -80,6 +86,7 @@ window.onload = function() {
 		
 		
 		game.physics.arcade.collide(player, layer);
+		game.physics.arcade.overlap(player, tuna, collectTuna, null, this);
 		player.body.velocity.x = 0;
 		
 		if (cursors.up.isDown && player.body.onFloor()) {
@@ -96,16 +103,10 @@ window.onload = function() {
 			player.animations.play("idle", 10, true);
 		}
 		
-		game.physics.arcade.overlap(player, tuna, tunaCollect, null, this);
     }
 	
-	function tunaCollect(player, tuna) {
+	function collectTuna(player, tuna) {
 		tuna.kill();
-	}
-	
-	function render() {
-		
-		game.debug.spriteBounds(player);
-		game.debug.spriteInfo(player, 160, 160);
+		crunch.play();
 	}
 };
