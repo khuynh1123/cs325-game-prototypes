@@ -18,17 +18,24 @@ window.onload = function() {
     function preload() {
         // Load an image and call it 'logo'.
         game.load.spritesheet("cat", "assets/cat.png", 640, 640);
+		
+		//game.load.tilemap("map_1", "assets/tilemap_1.json", null, Phaser.Tilemap.TILED_JSON);
+		game.load.image("background", "assets/background.png");
     }
     
+	var map;
 	var player;
 	var cursors;
 	
     function create() {
 		
+		// World setup
 		game.world.setBounds(0, 0, 1920, 1080);
 		game.physics.startSystem(Phaser.Physics.P2JS);
 		
+		map = game.add.tilemap("map_1");
 		
+		// Player setup
 		player = game.add.sprite(300, 100, "cat");
 		player.scale.setTo(.25, .25);
 		
@@ -36,9 +43,11 @@ window.onload = function() {
 		
 		player.body.fixedRotation = true;
 		
+		game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+		
+		// Input setup
 		cursors = game.input.keyboard.createCursorKeys();
 		
-		game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 		
 		
 		// Cat animation
@@ -57,14 +66,14 @@ window.onload = function() {
 		
 		
 		if (cursors.up.isDown) {
-			player.body.moveUp(100);
+			player.body.moveUp(150);
 		}
 		
 		if (cursors.left.isDown) {
-			player.body.moveLeft(100);
+			player.body.moveLeft(150);
 		}
 		else if (cursors.right.isDown) {
-			player.body.moveRight(100);
+			player.body.moveRight(150);
 		}
     }
 	
