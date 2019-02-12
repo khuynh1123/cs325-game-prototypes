@@ -24,7 +24,6 @@ window.onload = function() {
 		game.load.audio("crunch", "assets/crunch.mp3");
     }
 	
-	var background;
 	var crunch;
 	var cursors;
 	var layer;
