@@ -13,7 +13,7 @@ window.onload = function() {
 	
 	
 	
-    const game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update, render: render} );
+    const game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update} );
     
     function preload() {
         // Load an image and call it 'logo'.
