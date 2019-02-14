@@ -14,6 +14,11 @@ window.onload = function() {
 	
 	
     const game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update} );
+	
+	var card;
+	var deck;
+	var flip;
+	var player;
     
     function preload() {
         // Load an image and call it 'logo'.
@@ -22,22 +27,15 @@ window.onload = function() {
 		game.load.image("maptiles", "assets/platformtilesheet.png");
 		game.load.image("tuna", "assets/tuna.png");
 		game.load.audio("crunch", "assets/crunch.mp3");
+		
+		class Deck() {
+			
+			
+		}
     }
-	
-	var background;
-	var crunch;
-	var cursors;
-	var layer;
-	var map;
-	var player;
-	var tuna;
 	
 	
     function create() {
-		
-		// World setup
-		game.world.setBounds(0, 0, 1920, 1080);
-		game.physics.startSystem(Phaser.Physics.Arcade);
 		
 		// Tilemap setup
 		map = game.add.tilemap("map");
@@ -66,6 +64,12 @@ window.onload = function() {
 		map.createFromObjects("objects", "tuna", "tuna", null, true, false, tuna);
 		
 		game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.05, 0.05);
+		
+		
+		card.anchor.setTo(0.5, 0.5);
+		
+		game.add.tween(card.to());
+		
 		
 		// Input setup
 		cursors = game.input.keyboard.createCursorKeys();
