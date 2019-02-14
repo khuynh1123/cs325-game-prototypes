@@ -18,11 +18,23 @@ window.onload = function() {
 	var card;
 	var deck;
 	var flip;
-	var player_one;
-	var player_two;
-	var player_three;
-	var player_four;
+	var roll;
+	
+	var layer;
+	var map;
+	
+	var playerOne;
+	var playerTwo;
+	var playerThree;
+	var playerFour;
+	var roundNumber = 1;
+	
+	var rollButton;
+	var style;
+	var textRollNumber;
+	var textRoundNumber;
     
+	
     function preload() {
         
         game.load.image("red", "assets/red.png", 32, 32);
@@ -31,14 +43,16 @@ window.onload = function() {
 		game.load.image("green", "assets/green.png", 32, 32);
 		game.load.image("cyan", "assets/cyan.png", 32, 32);
 		game.load.image("purple", "assets/purple.png", 32, 32);
-		game.load.tilemap("map", "assets/map_demo.json", null, Phaser.Tilemap.TILED_JSON);
+		game.load.tilemap("map_demo", "assets/demo.json", null, Phaser.Tilemap.TILED_JSON);
 		game.load.image("maptiles", "assets/map_tiles.png");
 		game.load.image("maparrows", "assets/map_arrows.png");
 		
 		
 		
-		class Deck() {
-			
+		class Deck {
+			constructor() {
+				
+			}
 			
 		}
     }
@@ -46,80 +60,43 @@ window.onload = function() {
 	
     function create() {
 		
-		// Tilemap setup
-		map = game.add.tilemap("map");
+		// Board setup
+		game.stage.backgroundColor = "#d6d6d6";
+		map = game.add.tilemap("map_demo");
 		map.addTilesetImage("map_tiles", "maptiles");
-		
-		// problem v
-		//layer = map.createLayer("ground");
+		map.addTilesetImage("map_arrows", "maparrows");
+		layer = map.createLayer("board");
+		layer.scale.set(2);
 		layer.resizeWorld();
-		map.setCollisionBetween(0, 5);
-		map.setCollisionBetween(7, 15);
+		
+		// UI Setup
+		style = { font: "32px Arial", fill: "#000", align: "center" };
+		textRoundNumber = game.add.text(550, 50, "Round " + roundNumber, style);
+		textRoundNumber.anchor.set(0.5);
+		
+		rollButton = game.add.button(50, 500, "red", rollClick, this);
+		//sidebar = game.make.bitmapData(
 		
 		
 		// Player setup
-		player = game.add.sprite(200, game.world.height - 200, "player");
-		game.physics.enable(player);
-		player.anchor.setTo(.5, .5);
 		
-		player.body.gravity.y = 400;
-		
-		player.body.collideWorldBounds = true;
-		player.body.fixedRotation = true;
-		
-		tuna = game.add.group();
-		tuna.enableBody = true;
-		
-		map.createFromObjects("objects", "tuna", "tuna", null, true, false, tuna);
-		
-		game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.05, 0.05);
-		
-		
-		card.anchor.setTo(0.5, 0.5);
-		
-		game.add.tween(card.to());
+		//card.anchor.setTo(0.5, 0.5);
 		
 		
 		// Input setup
-		cursors = game.input.keyboard.createCursorKeys();
+		
+		playerOne = game.add.sprite(64 * 4 - 20, 64 * 4 - 12, "red");
+		playerOne.anchor.setTo(.5, .5);
 		
 		
-		
-		// Cat animation
-		player.animations.add("idle", [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], 10, true);
-		player.animations.add("walk", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,], 10, true);
-		
-		
-		crunch = game.add.audio("crunch");
-	
     }
     
     function update() {
 		
-		
-		
-		game.physics.arcade.collide(player, layer);
-		game.physics.arcade.overlap(player, tuna, collectTuna, null, this);
-		player.body.velocity.x = 0;
-		
-		if (cursors.up.isDown && player.body.onFloor()) {
-			player.body.velocity.y = -300;
-		} else if (cursors.left.isDown) {
-			player.scale.x = -1;
-			player.animations.play("walk", 10, true);
-			player.body.velocity.x = -175;
-		} else if (cursors.right.isDown) {
-			player.scale.x = 1;
-			player.animations.play("walk", 10, true);
-			player.body.velocity.x = 175;
-		} else {
-			player.animations.play("idle", 10, true);
-		}
-		
-    }
+	}
 	
-	function collectTuna(player, tuna) {
-		tuna.kill();
-		crunch.play();
+	function rollClick() {
+		roll = game.rnd.integerInRange(1, 6);
+		textRollNumber = game.add.text(100, 500, "You rolled " + roll, style);
 	}
 };
