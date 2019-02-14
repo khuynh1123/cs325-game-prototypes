@@ -18,15 +18,24 @@ window.onload = function() {
 	var card;
 	var deck;
 	var flip;
-	var player;
+	var player_one;
+	var player_two;
+	var player_three;
+	var player_four;
     
     function preload() {
-        // Load an image and call it 'logo'.
-        game.load.spritesheet("player", "assets/cat.png", 70, 55);
-		game.load.tilemap("map", "assets/tilemap_1.json", null, Phaser.Tilemap.TILED_JSON);
-		game.load.image("maptiles", "assets/platformtilesheet.png");
-		game.load.image("tuna", "assets/tuna.png");
-		game.load.audio("crunch", "assets/crunch.mp3");
+        
+        game.load.image("red", "assets/red.png", 32, 32);
+		game.load.image("blue", "assets/blue.png", 32, 32);
+		game.load.image("yellow", "assets/yellow.png", 32, 32);
+		game.load.image("green", "assets/green.png", 32, 32);
+		game.load.image("cyan", "assets/cyan.png", 32, 32);
+		game.load.image("purple", "assets/purple.png", 32, 32);
+		game.load.tilemap("map", "assets/map_demo.json", null, Phaser.Tilemap.TILED_JSON);
+		game.load.image("maptiles", "assets/map_tiles.png");
+		game.load.image("maparrows", "assets/map_arrows.png");
+		
+		
 		
 		class Deck() {
 			
@@ -39,10 +48,10 @@ window.onload = function() {
 		
 		// Tilemap setup
 		map = game.add.tilemap("map");
-		map.addTilesetImage("platformtilesheet", "maptiles");
+		map.addTilesetImage("map_tiles", "maptiles");
 		
 		// problem v
-		layer = map.createLayer("ground");
+		//layer = map.createLayer("ground");
 		layer.resizeWorld();
 		map.setCollisionBetween(0, 5);
 		map.setCollisionBetween(7, 15);
