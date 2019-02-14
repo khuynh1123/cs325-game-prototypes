@@ -6,8 +6,6 @@
          "height":7,
          "id":1,
          "name":"Tile Layer 1",
-         "offsetx":7.18181818181817,
-         "offsety":-31.0909090909091,
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
