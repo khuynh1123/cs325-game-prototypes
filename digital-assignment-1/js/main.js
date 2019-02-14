@@ -13,7 +13,7 @@ window.onload = function() {
 	
 	
 	
-    const game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update} );
+    const game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update, render: render} );
     
     function preload() {
         // Load an image and call it 'logo'.
@@ -24,6 +24,7 @@ window.onload = function() {
 		game.load.audio("crunch", "assets/crunch.mp3");
     }
 	
+	var background;
 	var crunch;
 	var cursors;
 	var layer;
@@ -42,7 +43,6 @@ window.onload = function() {
 		map = game.add.tilemap("map");
 		map.addTilesetImage("platformtilesheet", "maptiles");
 		
-		// problem v
 		layer = map.createLayer("ground");
 		layer.resizeWorld();
 		map.setCollisionBetween(0, 5);
@@ -52,6 +52,7 @@ window.onload = function() {
 		// Player setup
 		player = game.add.sprite(200, game.world.height - 200, "player");
 		game.physics.enable(player);
+		player.body.setSize(45, 40, 15, 10);
 		player.anchor.setTo(.5, .5);
 		
 		player.body.gravity.y = 400;
@@ -108,4 +109,5 @@ window.onload = function() {
 		tuna.kill();
 		crunch.play();
 	}
+	
 };
