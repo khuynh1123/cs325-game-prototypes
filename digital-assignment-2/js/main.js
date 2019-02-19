@@ -88,7 +88,7 @@ window.onload = function() {
 		playerOne = game.add.sprite(64 * 4 - 20, 64 * 4 - 12, "red");
 		playerOne.anchor.setTo(.5, .5);
 		
-		
+		textRollNumber = game.add.text(0, 0, "", {font: "1px Arial", fill: "#d6d6d6", align: "center" });
     }
     
     function update() {
@@ -97,6 +97,9 @@ window.onload = function() {
 	
 	function rollClick() {
 		roll = game.rnd.integerInRange(1, 6);
+		textRollNumber.destroy();
 		textRollNumber = game.add.text(100, 500, "You rolled " + roll, style);
+		game.time.events.add(1000, function() {game.add.tween(textRollNumber).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);}, this);
+		
 	}
 };
