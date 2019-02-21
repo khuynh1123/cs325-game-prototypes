@@ -73,7 +73,7 @@ BasicGame.Game.prototype = {
 	spawnLetter: function() {
 		
 		var randomInt = Math.floor(Math.random() * 360);
-		var newLetter = this.game.add.text(Math.floor(Math.sin(randomInt) * 500), Math.floor(Math.cos(randomInt) * 500), "" + this.alphabet[Math.floor(Math.random() * 26)], {font: "32px Arial", fill: "#ffffff", align: "center"});
+		var newLetter = this.game.add.text(this.game.world.centerX + Math.floor(Math.sin(randomInt) * 400), this.game.world.centerY + Math.floor(Math.cos(randomInt) * 400), "" + this.alphabet[Math.floor(Math.random() * 26)], {font: "32px Arial", fill: "#ffffff", align: "center"});
 		
 		this.game.physics.arcade.enable(newLetter);
 		newLetter.anchor.setTo(0.5);
