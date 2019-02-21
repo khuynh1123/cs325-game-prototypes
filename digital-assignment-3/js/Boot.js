@@ -1,6 +1,6 @@
 "use strict";
 
-var BasicGame = {};
+var BasicGame = window.BasicGame || (window.BasicGame = {});
 
 BasicGame.Boot = function (game) {
 

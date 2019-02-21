@@ -28,6 +28,7 @@ BasicGame.Preloader.prototype = {
 		this.load.image('titlePage', 'assets/title.jpg');
 		this.load.atlas('playButton', 'assets/play_button.png', 'assets/play_button.json');
 		this.load.audio('titleMusic', ['assets/Poppers and Prosecco.mp3']);
+		this.load.audio("gameMusic", ["assets/backing.wav"]);
 		//	+ lots of other required assets here
         this.load.image( 'logo', 'assets/phaser.png' );
 	},
@@ -50,7 +51,7 @@ BasicGame.Preloader.prototype = {
 		//	If you don't have any music in your game then put the game.state.start line into the create function and delete
 		//	the update function completely.
 		
-		if (this.cache.isSoundDecoded('titleMusic') && this.ready == false)
+		if (this.cache.isSoundDecoded('gameMusic') && this.ready == false)
 		{
 			this.ready = true;
 			this.state.start('MainMenu');
