@@ -31,20 +31,22 @@ body
 <body>
 <div id="game"></div>
 <div id="readme">
-<h2> Countdown </h2>
+<h2> Alpha Space </h2>
 
 <ul>
 <li><strong>Originality:</strong>
-What is original about your game?
+I have never played anything like it before.
 </li>
 
 <li><strong>Technical Merit:</strong>
-What is interesting about your game technology?
+Randomly spawning text that doubles as interactable objects, multiple game states.
 </li>
 
 <li><strong>Prototype Postmortem:</strong>
 What did you learn from this prototype?
+<ul> Partial knowledge of game states. </ul>
 What was the easiest or hardest part of making it?
+<ul> Hardest parts were spawning single characters as interactable objects and managing the gamestates </ul>
 </li>
 
 <li><strong>Prototype Assets:</strong>
@@ -52,62 +54,74 @@ Did you make your prototype assets from scratch? Did you borrow them? Cite your 
 <ul>
 <li>Loading screen: Phaser example</li>
 <li>Button: Phaser example <a href="https://phaser.io/examples/v2/buttons/action-on-click">Action On Click</a></li>
+<li> Word Generator: <a href = "https://wordcounter.net/random-word-generator"> Here </a></li>
 <li>Bouncing Phaser image: <a href="https://phaser.io/download/logo">Phaser logo</a></li>
-<li>A bullet hell</li>
 <li>Music: "Poppers and Prosecco" Kevin MacLeod (<a href="incompetech.com">incompetech.com</a>). Licensed under <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons: By Attribution 3.0 License</a></li>
 
 </ul>
 </li>
 
 <li><strong>Prototype Closest Other Game:</strong>
-Which other game most closely resembles your game? If you are borrowing code from a Phaser Example, you must say so here. If you borrow code from elsewhere, you must say so here.
 <ul>
 <li> Countdown Timer: <a href="https://stackoverflow.com/questions/52063815/how-to-add-countdown-timer-to-phaser-game"> Stackoverflow post </a></li>
 <li> Add Sprite to Group: <a href = "https://phaser.io/examples/v2/groups/add-a-sprite-to-group"> Here </a></li>
 <li> Letter spawning, object collision <a href = "https://github.com/photonstorm/phaser-examples/blob/master/examples/text/bitmaptext%20with%20physics.js"> Here </a> and <a href = "https://phaser.io/examples/v2/input/group-input-events"> here </a></li>
-<li> Bitmap stuff: <a href = ""> Here </a></li>
+<li> Bitmap stuff: <a href = "https://phaser.io/examples/v2/input/word-input"> Here </a></li>
 </ul>
+Similar to a bullet hell-type game.
 </li>
 
 <li><strong>High Concept:</strong>
-A one-sentence summary of your game.
+Collect letters to complete the word, dodge unwanted letters!
 </li>
 
 <li><strong>Theme:</strong>
 State which of the Storymatic themes you used.
+Letters are returned.
 </li>
 
 <li><strong>Mandated Variety:</strong>
 State which input, randomness, genre, and play style you used in this prototype.
+<ul> Input: Cursor </ul>
+<ul> Randomness: Phaser Math.Random - random spawning location and array index selection </ul>
+<ul> Genre: Shooter (Bullet Hell) </ul>
+<ul> 
 </li>
 
 <li><strong>Prototype Goal:</strong>
 What game mechanic is this prototype evaluating?
+<ul> </ul>
 </li>
 
 <li><strong>Player Experience Goals:</strong>
 What experience do you want players to have when playing your game?
+<ul> I want players to think quickly, testing their reaction time. </ul>
 </li>
 
 <li><strong>Gameplay:</strong>
 A paragraph describing the actions the player can perform, the system dynamics, and the core mechanic. Include a concise explanation of the prototype’s inputs and their expected effects (how to play). You can also describe game play that is not in the prototype. You may include mock-up images for parts of the game not in the prototype.
+<ul> Letters will spawn anywhere, outside or inside of the play area.  The player must touch letters that are contained within the given word.  Collecting all letters for the given word results in a win.  Collecting any unnecessary letters results in a loss.</ul>
 </li>
 
 <li><strong>Strategies:</strong>
 What player strategies do you expect will be effective at playing this game?
+<ul> Constantly moving.  Repeat letters are obtainable. </ul>
 </li>
 
 <li><strong>Story/Setting/Premise:</strong>
 A paragraph about the world your game is set in and who the characters are. What makes the game world and its occupants unique and interesting? Do the tokens represent something? If the game has a backstory, mention it here. If the game is abstract, then say so.
 How will the dramatic tension interact with the gameplay tension?
+<ul> </ul>
 </li>
 
 <li><strong>Target Audience:</strong>
 A single sentence that describes the demographic you're trying to reach.
+<ul> Gamers who enjoy bullet hell-type games. </ul>
 </li>
 
 <li><strong>Play Time:</strong>
 How long does your game take to play?
+<ul> Two minutes </ul>
 </li>
 
 </ul>

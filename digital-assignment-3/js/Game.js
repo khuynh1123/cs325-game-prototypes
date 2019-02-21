@@ -35,7 +35,7 @@ BasicGame.Game.prototype = {
 		
 		this.wordList = [
 			"EARTHY", "STRONG", "EXPLAIN", "IMPLANT", "NOTIFY", "BASHFUL", "IMPLODE",
-			"DINOSAUR", "DISFUNCTIONAL", "ACTION", "QUESTION", "HYDRANT", "FLOWERS", "HANDSOME"
+			"DINOSAUR", "TANGIBLE", "ACTION", "QUESTION", "HYDRANT", "FLOWERS", "HANDSOME"
 		];
 		
 		this.word = this.wordList[Math.floor(Math.random() * 14)];
@@ -56,9 +56,6 @@ BasicGame.Game.prototype = {
 		this.wordBitmap.context.fillStyle = "#696969";
 		this.wordBitmap.context.fillText(this.word, 48, 48);
 		this.wordBitmap.addToWorld();
-		
-        
-		this.input.keyboard.addCallbacks(this, null, null, this.keyPress);
 		
 		var pauseKey = this.input.keyboard.addKey(Phaser.Keyboard.ESC);
 		pauseKey.onDown.add(this.pauseFunction, this);
