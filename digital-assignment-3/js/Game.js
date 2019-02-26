@@ -77,7 +77,7 @@ BasicGame.Game.prototype = {
 		
 		this.game.physics.arcade.enable(newLetter);
 		newLetter.anchor.setTo(0.5);
-		newLetter.body.velocity.setTo(this.game.world.centerX - newLetter.position.x,this.game.world.centerY - newLetter.position.y);
+		newLetter.body.velocity.setTo(this.game.world.centerX - newLetter.position.x, this.game.world.centerY - newLetter.position.y);
 		
 		
 		
