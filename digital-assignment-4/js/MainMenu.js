@@ -28,8 +28,8 @@ GameStates.makeMainMenu = function( game, shared ) {
     
             game.add.sprite(0, 0, 'titlePage');
     
-            storyButton = game.add.button( 600, 100, 'storyButton', startGame, null, 'over', 'out', 'down');
-			storyButton.
+            storyButton = game.add.button( 650, 100, 'storyButton', startGame, null, 'over', 'out', 'down');
+			
         },
     
         update: function () {
