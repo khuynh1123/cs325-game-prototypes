@@ -1,0 +1,34 @@
+{"frames": [
+
+{
+	"filename": "down",
+	"frame": {"x":0,"y":90,"w":110,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":45},
+	"sourceSize": {"w":110,"h":45}
+},
+{
+	"filename": "out",
+	"frame": {"x":0,"y":45,"w":110,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":45},
+	"sourceSize": {"w":110,"h":45}
+},
+{
+	"filename": "over",
+	"frame": {"x":0,"y":0,"w":110,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":45},
+	"sourceSize": {"w":110,"h":45}
+}],
+"meta": {
+	"version": "1.0",
+	"image": "playButton.png",
+	"format": "RGBA8888",
+	"size": {"w":110,"h":45},
+	"scale": "1"
+}
+}
