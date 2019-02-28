@@ -138,7 +138,7 @@ GameStates.makeGame = function( game, shared ) {
 		
 		enterWin: function() {
 			shared.win = true;
-			game.state.start("Post");
+			game.state.start("PostScreen");
 		}
 		
     };
