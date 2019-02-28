@@ -16,7 +16,7 @@ GameStates.makePost = function( game, shared ) {
     return {
     
         create: function () {
-			menuButton = this.add.button( 40, 40, 'menuButton', backToMainMenu, this, 'over', 'out', 'down');
+			menuButton = this.add.button( 90, 35, 'menuButton', backToMainMenu, this, 'over', 'out', 'down');
 				
 			text = game.add.text(300, 300, "You collected all of the tuna!", {font: "36px Arial", fill: "#ffffff", align: "center"});
 		},

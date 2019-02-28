@@ -26,7 +26,7 @@ GameStates.makePreloader = function( game ) {
         },
     
         create: function () {
-			loadingText = game.add.text(700, 500, "Loading...", {font: "32px Arial", fill: "#ffffff", align: "right"});
+			loadingText = game.add.text(600, 500, "Loading...", {font: "32px Arial", fill: "#ffffff", align: "right"});
         },
     
         update: function () {
