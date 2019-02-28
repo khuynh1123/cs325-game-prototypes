@@ -23,9 +23,11 @@ GameStates.makePreloader = function( game ) {
     
             //	Here we load the rest of the assets our game needs.
             //	As this is just a Project Template I've not provided these assets, swap them for your own.
-            game.load.image('titlePage', 'assets/roomBackground.png');
+            game.load.image('roomBackground', 'assets/roomBackground.png');
             game.load.atlas('storyButton', 'assets/storyButton.png', 'assets/storyButton.json');
-            game.load.audio('titleMusic', ['assets/Poppers and Prosecco.mp3']);
+            game.load.atlas('backArrow', 'assets/backArrow.png', 'assets/backArrow.json');
+            game.load.atlas('statsButton', 'assets/statsButton.png', 'assets/statsButton.json');
+            game.load.audio('nightMusic', ['assets/nightMusic.wav']);
             //	+ lots of other required assets here
             game.load.image( 'logo', 'assets/phaser.png' );
 			game.load.script('BlurX', 'https://cdn.rawgit.com/photonstorm/phaser-ce/master/filters/BlurX.js');
@@ -51,7 +53,7 @@ GameStates.makePreloader = function( game ) {
             //	If you don't have any music in your game then put the game.state.start line into the create function and delete
             //	the update function completely.
             
-            if (game.cache.isSoundDecoded('titleMusic') && ready == false)
+            if (game.cache.isSoundDecoded('nightMusic') && ready == false)
             {
                 ready = true;
                 game.state.start('MainMenu');

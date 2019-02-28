@@ -12,10 +12,9 @@ BasicGame.WinScreen.prototype = {
 		//	Here all we're doing is playing some music and adding a picture and button
 		//	Naturally I expect you to do something significantly better :)
 		
-		this.game.add.text(200, 200, "You win! Try again?", {font: "32px Arial", fill: "#ffffff", align: "center"});
+		this.game.add.text(200, 200, "You win! Play again?", {font: "32px Arial", fill: "#ffffff", align: "center"});
 		
 		this.playButton = this.add.button( 303, 400, 'playButton', this.restartGame, this, 'over', 'out', 'down');
-
 	},
 
 	update: function () {
