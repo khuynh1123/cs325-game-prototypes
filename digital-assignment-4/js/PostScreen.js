@@ -8,7 +8,7 @@ GameStates.makePost = function( game, shared ) {
     function backToMainMenu(pointer) {
 		if (shared.win == true) {
 			shared.win = false;
-			timesCompleted++;
+			shared.timesCompleted++;
 		}
         game.state.start('MainMenu', shared);
     }
