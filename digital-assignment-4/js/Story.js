@@ -137,7 +137,7 @@ GameStates.makeGame = function( game, shared ) {
 		},
 		
 		enterWin: function() {
-			win = true;
+			shared.win = true;
 			game.state.start("Post");
 		}
 		
