@@ -36,6 +36,7 @@ GameStates.makeMainMenu = function( game, shared ) {
 				music.volume = 0.25;
 				music.allowMultiple = false;		
 			}
+			
             background = game.add.sprite(0, 0, 'roomBackground');
     
             storyButton = game.add.button( 650, 100, 'storyButton', startGame, null, 'over', 'out', 'down');
