@@ -12,7 +12,8 @@ window.onload = function() {
 	// An object for shared variables, so that them main menu can show
 	// the high score if you want.
 	var shared = {
-		totalStoryTuna: 0, totalTuna: 0, timesPlayed: 0, timesCompleted: 0
+		totalStoryTuna: 0, totalTuna: 0, timesPlayed: 0, timesCompleted: 0,
+		win: false
 	};
 	
 	game.state.add( 'Boot', GameStates.makeBoot( game ) );
@@ -20,6 +21,7 @@ window.onload = function() {
 	game.state.add( 'MainMenu', GameStates.makeMainMenu( game, shared ) );
 	game.state.add( "Stats" , GameStates.makeStats( game, shared ) );
 	game.state.add( "Story" , GameStates.makeGame( game, shared ) );
+	game.state.add( "PostScreen", GameStates.makePost (game, shared) );
 	//game.state.add( "Endless", GameStates.makeEndless( game, shared );
 	//	Now start the Boot state.
 	game.state.start('Boot');

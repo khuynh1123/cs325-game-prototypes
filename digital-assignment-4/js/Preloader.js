@@ -14,12 +14,14 @@ GameStates.makePreloader = function( game ) {
             game.load.atlas('storyButton', 'assets/storyButton.png', 'assets/storyButton.json');
             game.load.atlas('backArrow', 'assets/backArrow.png', 'assets/backArrow.json');
             game.load.atlas('statsButton', 'assets/statsButton.png', 'assets/statsButton.json');
+			game.load.atlas("menuButton", "assets/menuButton.png", "assets/menuButton.json");
 			game.load.audio("crunch", "assets/crunch.mp3");
             game.load.audio('nightMusic', ['assets/nightMusic.wav']);
     		game.load.script('BlurX', 'https://cdn.rawgit.com/photonstorm/phaser-ce/master/filters/BlurX.js');
 			game.load.image("maptiles", "assets/platformtilesheet.png");
 			game.load.image("foregroundtiles", "assets/foregroundtilemap.png");
-			game.load.tilemap("map", "assets/map_story1.json", null, Phaser.Tiled.TILED_JSON);
+			game.load.image("tuna", "assets/tuna.png");
+			game.load.tilemap("map", "assets/map_story1.json", null, Phaser.Tilemap.TILED_JSON);
 			game.load.spritesheet("player", "assets/cat.png", 70, 55);
         },
     

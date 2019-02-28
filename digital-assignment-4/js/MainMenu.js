@@ -10,10 +10,10 @@ GameStates.makeMainMenu = function( game, shared ) {
     function startGame(pointer) {
 
         //	Ok, the Play Button has been clicked or touched, so let's stop the music (otherwise it'll carry on playing)
-        music.stop();
-
+		music.stop();
         //	And start the actual game
-        game.state.start('Story');
+		shared.timesPlayed++;
+        game.state.start('Story', shared);
 
     }
 	
@@ -21,14 +21,7 @@ GameStates.makeMainMenu = function( game, shared ) {
 		game.state.start("Stats", shared);
 		
 	}
-	
-	function musicStart(pointer) {
-		music = game.add.audio('nightMusic');
-		music.loop = true;
-		music.volume = 0.25;
-		music.allowMultiple = false;		
-	}
-    
+
     return {
     
         create: function () {
@@ -38,7 +31,10 @@ GameStates.makeMainMenu = function( game, shared ) {
             //	Naturally I expect you to do something significantly better :)
 			
 			if (!music || !music.isPlaying) {
-				game.time.events.add(Phaser.Timer.SECOND * 2, musicStart, this);
+				music = game.add.audio('nightMusic');
+				music.loop = true;
+				music.volume = 0.25;
+				music.allowMultiple = false;		
 			}
             background = game.add.sprite(0, 0, 'roomBackground');
     
