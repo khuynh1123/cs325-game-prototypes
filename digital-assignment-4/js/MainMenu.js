@@ -13,13 +13,20 @@ GameStates.makeMainMenu = function( game, shared ) {
         music.stop();
 
         //	And start the actual game
-        game.state.start('Game');
+        game.state.start('Story');
 
     }
 	
 	function enterStats(pointer) {
 		game.state.start("Stats", shared);
 		
+	}
+	
+	function musicStart(pointer) {
+		music = game.add.audio('nightMusic');
+		music.loop = true;
+		music.volume = 0.25;
+		music.allowMultiple = false;		
 	}
     
     return {
@@ -29,15 +36,10 @@ GameStates.makeMainMenu = function( game, shared ) {
             //	We've already preloaded our assets, so let's kick right into the Main Menu itself.
             //	Here all we're doing is playing some music and adding a picture and button
             //	Naturally I expect you to do something significantly better :)
-    
+			
 			if (!music || !music.isPlaying) {
-				music = game.add.audio('nightMusic');
-				music.loop = true;
-				music.volume = 0.25;
-				music.allowMultiple = false;
-				music.play();
+				game.time.events.add(Phaser.Timer.SECOND * 2, musicStart, this);
 			}
-    
             background = game.add.sprite(0, 0, 'roomBackground');
     
             storyButton = game.add.button( 650, 100, 'storyButton', startGame, null, 'over', 'out', 'down');

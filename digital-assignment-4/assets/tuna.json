@@ -1,0 +1,15 @@
+{ "columns":1,
+ "image":"tuna.png",
+ "imageheight":19,
+ "imagewidth":44,
+ "margin":0,
+ "name":"tuna",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.2.2",
+ "tileheight":19,
+ "tilewidth":44,
+ "transparentcolor":"#ff00ff",
+ "type":"tileset",
+ "version":1.2
+}
