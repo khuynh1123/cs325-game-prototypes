@@ -25,6 +25,7 @@ GameStates.makePreloader = function( game ) {
             //	+ lots of other required assets here
             //game.load.image( 'logo', 'assets/phaser.png' );
 			game.load.atlas("newGameButton", "assets/newGameButton.png", "assets/newGameButton.json");
+			game.load.atlas('backArrow', 'assets/backArrow.png', 'assets/backArrow.json');
 			
 			game.load.image("red", "assets/red.png", 32, 32);
 			game.load.image("blue", "assets/blue.png", 32, 32);

@@ -11,14 +11,21 @@ GameStates.makeGame = function( game, shared ) {
 	var layer;
 	var map;
 	
-	var playerList = [];
 	var playerTurn = 1;
-	var roundNumber = 1;
+	// var countdownTimer = 30; Lower for testing
+	var countdownTimer = 10;
 	
+	var backArrow;
 	var rollButton;
 	var style;
 	var textRollNumber;
-	var textRoundNumber;	
+	var textCountdownNumber;	
+	
+	
+	var playerOne;
+	var playerOneIndex;
+	var playerTwo;
+	var playerTwoIndex;
 	
 	var deck = [];
 	
@@ -56,31 +63,6 @@ GameStates.makeGame = function( game, shared ) {
 				];
 	
 	
-	var addPlayerDone = false;
-	
-	Player = function (game, x, y) {
-		this.name = "Player " + playerList.length;
-		
-		switch (playerList.length) {
-			case 0:
-				color = "red";
-				break;
-			case 1:
-				color = "blue";
-				break;
-			case 2:
-				color = "yellow";
-				break;
-			case 3:
-				color = "green";
-				break;
-			default:
-			color = "purple";
-	}
-	
-	Phaser.Sprite.call(this, game, x, y, color);
-	this.tileIndex = tileIndex;
-}
 	
     function quitGame() {
 
@@ -100,7 +82,8 @@ GameStates.makeGame = function( game, shared ) {
 	}
 	
 	function mapSetup() {
-            game.stage.backgroundColor = "#d6d6d6";
+            //game.stage.backgroundColor = "#696969";
+			game.stage.backgroundColor = "#847e87";
 			map = game.add.tilemap("map_demo");
 			map.addTilesetImage("map_tiles", "maptiles");
 			map.addTilesetImage("map_arrows", "maparrows");
@@ -117,40 +100,395 @@ GameStates.makeGame = function( game, shared ) {
 			
 			// UI Setup
 			style = { font: "32px Arial", fill: "#000", align: "center" };
-			textRoundNumber = game.add.text(550, 50, "Round " + roundNumber, style);
-			textRoundNumber.anchor.set(0.5);
+			textCountdownNumber = game.add.text(575, 30, "Countdown " + countdownTimer, style);
+			textCountdownNumber.anchor.set(0.5, 0);
 			
 			rollButton = game.add.button(50, 500, "red", rollClick, this);
 		
 			textRollNumber = game.add.text(100, 500, "", {font: "1px Arial", fill: "#d6d6d6", align: "center" });
+			
+			backArrow = game.add.button( 750, 30, 'backArrow', quitGame, this, 'over', 'out', 'down');
+			backArrow.anchor.set(0.5, 0);
 	}
 	
 	function playerSetup() {
-		if (playerList.length < 3 && !addPlayerDone) {
-			addPlayerButton = game.add.button(550, 100, "blue", addPlayer, this);
-			donePlayerButton = game.add.button(600, 100, "green", donePlayer, this);
-		}
+		playerOne = game.add.sprite(64 * 4, 64 * 4 + 4, "red");
+		playerOne.anchor.setTo(1);
+		playerOneIndex = 0;
+		
+		
+		playerTwo = game.add.sprite(64 * 3, 64 * 3, "blue");
+		playerTwo.anchor.setTo(0);
+		playerTwoIndex = 0;
+		
+		
 	}
-	
-	function addPlayer() {
-		var player = new Player(this, game, 64 * 4 - 20, 64 * 4 - 12);
-		playerList.push(player);
-	}
-	
-	function donePlayer() {
-		addPlayerDone = true;
-		for (var i = 0; i < playerList.length; i++) {
-			console.log(playerList[i].name + " is at tile " + playerList[i].tileIndex);
-		}
-	}
+
 	
 	function rollClick() {
 		roll = Math.floor(Math.random() * 6) + 1;
 		textRollNumber.destroy();
 		textRollNumber = game.add.text(100, 500, "Player " + playerTurn + " rolled a " + roll + ".", {font: "32px Arial", fill: "#000", align: "center"});
+		
+		if (playerTurn == 1) {
+			if (playerOneIndex + roll > board.length) {
+				playerOneIndex = playerOneIndex + roll - board.length;
+				countDown();
+			} else {
+				if ((playerOneIndex % 12) + roll > 12 || (playerOneIndex % 12 == 0 && !playerOneIndex == 0)) {
+					countDown();
+				}
+				playerOneIndex += roll;
+			}
+		}
+		
+		if (playerTurn == 2) {
+			if (playerTwoIndex + roll > board.length) {
+				playerTwoIndex = playerTwoIndex + roll - board.length;
+				countDown();
+			} else {
+				if ((playerTwoIndex % 12) + roll > 12 || (playerTwoIndex % 12 == 0 && !playerTwoIndex == 0)) {
+					countDown();
+				}
+				playerTwoIndex += roll;
+			}
+		}
+		console.log("Index one: " + playerOneIndex);
+		console.log("Index two: " + playerTwoIndex);
+		
+		updatePlayer(playerTurn);
+		playerTurn == 1 ? playerTurn = 2 : playerTurn = 1;
 	}
 	
+	function updatePlayer(number) {
+		var x = 0;
+		var y = 0;
+		if (number == 1) {
+			switch (playerOneIndex) {
+				
+				case 1:
+				case 25:
+					playerOne.x = 64 * 4;
+					playerOne.y = 64 * 3 + 4;
+					break;					
+				case 2:
+				case 26:
+					playerOne.x = 64 * 4;
+					playerOne.y = 64 * 2 + 4;
+					break;
+				case 3:
+				case 27:
+					playerOne.x = 64 * 4;
+					playerOne.y = 64 + 4;
+					break;
+				case 4:
+					playerOne.x = 64 * 5;
+					playerOne.y = 64 + 4;
+					break;
+				case 5:
+					playerOne.x = 64 * 6;
+					playerOne.y = 64 + 4;
+					break;
+				case 6:
+					playerOne.x = 64 * 7;
+					playerOne.y = 64 + 4;
+					break;
+				case 7:
+					playerOne.x = 64 * 7;
+					playerOne.y = 64 * 2 + 4;
+					break;
+				case 8:
+					playerOne.x = 64 * 7;
+					playerOne.y = 64 * 3 + 4;
+					break;
+				case 9:
+				case 39:
+					playerOne.x = 64 * 7;
+					playerOne.y = 64 * 4 + 4;
+					break;
+				case 10:
+				case 38:
+					playerOne.x = 64 * 6;
+					playerOne.y = 64 * 4 + 4;
+					break;
+				case 11:
+				case 37:
+					playerOne.x = 64 * 5;
+					playerOne.y = 64 * 4 + 4;
+					break;
+				case 13:
+				case 35:
+					playerOne.x = 64 * 3;
+					playerOne.y = 64 * 4 + 4;
+					break;					
+				case 14:
+				case 34:
+					playerOne.x = 64 * 2;
+					playerOne.y = 64 * 4 + 4;
+					break;
+				case 15:
+				case 33:
+					playerOne.x = 64;
+					playerOne.y = 64 * 4 + 4;
+					break;
+				case 16:
+					playerOne.x = 64;
+					playerOne.y = 64 * 5 + 4;
+					break;
+				case 17:
+					playerOne.x = 64;
+					playerOne.y = 64 * 6 + 4;
+					break;
+				case 18:
+					playerOne.x = 64;
+					playerOne.y = 64 * 7 + 4;
+					break;
+				case 19:
+					playerOne.x = 64 * 2;
+					playerOne.y = 64 * 7 + 4;
+					break;
+				case 20:
+					playerOne.x = 64 * 3;
+					playerOne.y = 64 * 7 + 4;
+					break;
+				case 21:
+				case 45:
+					playerOne.x = 64 * 4;
+					playerOne.y = 64 * 7 + 4;
+					break;
+				case 22:
+				case 46:
+					playerOne.x = 64 * 4;
+					playerOne.y = 64 * 6 + 4;
+					break;
+				case 23:
+				case 47:
+					playerOne.x = 64 * 4;
+					playerOne.y = 64 * 5 + 4;
+					break;
+				case 28:
+					playerOne.x = 64 * 3;
+					playerOne.y = 64 + 4;
+					break;
+				case 29:
+					playerOne.x = 64 * 2;
+					playerOne.y = 64 + 4;
+					break;
+				case 30:
+					playerOne.x = 64;
+					playerOne.y = 64 + 4;
+					break;
+				case 31:
+					playerOne.x = 64;
+					playerOne.y = 64 * 2 + 4;
+					break;
+				case 32:
+					playerOne.x = 64;
+					playerOne.y = 64 * 3 + 4;
+					break;
+				case 40:
+					playerOne.x = 64 * 7;
+					playerOne.y = 64 * 5 + 4;
+					break;
+				case 41:
+					playerOne.x = 64 * 7;
+					playerOne.y = 64 * 6 + 4;
+					break;
+				case 42:
+					playerOne.x = 64 * 7;
+					playerOne.y = 64 * 7 + 4;
+					break;
+				case 43:
+					playerOne.x = 64 * 6;
+					playerOne.y = 64 * 7 + 4;
+					break;
+				case 44:
+					playerOne.x = 64 * 5;
+					playerOne.y = 64 * 7 + 4;
+					break;
+					
+				case playerOneIndex % 12 == 0:
+				default:
+					playerOne.x = 64 * 4;
+					playerOne.y = 64 * 4 + 4;
+			}
+			
+			
+		}
+		
+		if (number == 2) {
+			switch (playerTwoIndex) {
+				
+				case 1:
+				case 25:
+					playerTwo.x = 64 * 3;
+					playerTwo.y = 64 * 2;
+					break;					
+				case 2:
+				case 26:
+					playerTwo.x = 64 * 3;
+					playerTwo.y = 64;
+					break;
+				case 3:
+				case 27:
+					playerTwo.x = 64 * 3;
+					playerTwo.y = 0;
+					break;
+				case 4:
+					playerTwo.x = 64 * 4;
+					playerTwo.y = 0;
+					break;
+				case 5:
+					playerTwo.x = 64 * 5;
+					playerTwo.y = 0;
+					break;
+				case 6:
+					playerTwo.x = 64 * 6;
+					playerTwo.y = 0;
+					break;
+				case 7:
+					playerTwo.x = 64 * 6;
+					playerTwo.y = 64;
+					break;
+				case 8:
+					playerTwo.x = 64 * 6;
+					playerTwo.y = 64 * 2;
+					break;
+				case 9:
+				case 39:
+					playerTwo.x = 64 * 6;
+					playerTwo.y = 64 * 3;
+					break;
+				case 10:
+				case 38:
+					playerTwo.x = 64 * 5;
+					playerTwo.y = 64 * 3;
+					break;
+				case 11:
+				case 37:
+					playerTwo.x = 64 * 4;
+					playerTwo.y = 64 * 3;
+					break;
+				case 13:
+				case 35:
+					playerTwo.x = 64 * 2;
+					playerTwo.y = 64 * 3;
+					break;					
+				case 14:
+				case 34:
+					playerTwo.x = 64;
+					playerTwo.y = 64 * 3;
+					break;
+				case 15:
+				case 33:
+					playerTwo.x = 0;
+					playerTwo.y = 64 * 3;
+					break;
+				case 16:
+					playerTwo.x = 0;
+					playerTwo.y = 64 * 4;
+					break;
+				case 17:
+					playerTwo.x = 0;
+					playerTwo.y = 64 * 5;
+					break;
+				case 18:
+					playerTwo.x = 0;
+					playerTwo.y = 64 * 6;
+					break;
+				case 19:
+					playerTwo.x = 64;
+					playerTwo.y = 64 * 6;
+					break;
+				case 20:
+					playerTwo.x = 64 * 2;
+					playerTwo.y = 64 * 6;
+					break;
+				case 21:
+				case 45:
+					playerTwo.x = 64 * 3;
+					playerTwo.y = 64 * 6;
+					break;
+				case 22:
+				case 46:
+					playerTwo.x = 64 * 3;
+					playerTwo.y = 64 * 5;
+					break;
+				case 23:
+				case 47:
+					playerTwo.x = 64 * 3;
+					playerTwo.y = 64 * 4;
+					break;
+				case 28:
+					playerTwo.x = 64 * 2;
+					playerTwo.y = 0;
+					break;
+				case 29:
+					playerTwo.x = 64;
+					playerTwo.y = 0;
+					break;
+				case 30:
+					playerTwo.x = 0;
+					playerTwo.y = 0;
+					break;
+				case 31:
+					playerTwo.x = 0;
+					playerTwo.y = 64;
+					break;
+				case 32:
+					playerTwo.x = 0;
+					playerTwo.y = 64 * 2;
+					break;
+				case 40:
+					playerTwo.x = 64 * 6;
+					playerTwo.y = 64 * 4;
+					break;
+				case 41:
+					playerTwo.x = 64 * 6;
+					playerTwo.y = 64 * 5;
+					break;
+				case 42:
+					playerTwo.x = 64 * 6;
+					playerTwo.y = 64 * 6;
+					break;
+				case 43:
+					playerTwo.x = 64 * 5;
+					playerTwo.y = 64 * 6;
+					break;
+				case 44:
+					playerTwo.x = 64 * 4;
+					playerTwo.y = 64 * 6;
+					break;
+					
+				case playerTwoIndex % 12 == 0:
+				default:
+					playerTwo.x = 64 * 3;
+					playerTwo.y = 64 * 3;
+			}
+			
+			
+		}
+		
+		
+	}
     
+	function countDown() {
+		countdownTimer--;
+		textCountdownNumber.setText("Countdown " + countdownTimer);
+		
+		if (countdownTimer == 0) {
+			gameOver();
+		}
+	}
+	
+	function gameOver() {
+		shared.loseGame = true;
+		var over = game.add.text(400, 300, "GAME OVER", {font: "120px Arial", fill: "#f00", align: "center"});
+		over.anchor.set(0.5);
+		rollButton.inputEnabled = false;
+		//game.state.start("PostScreen");
+	}
+	
 	function shuffleDeck() {
 		
 	}
@@ -163,18 +501,13 @@ GameStates.makeGame = function( game, shared ) {
     
         create: function () {
 			
-			// Player setup
-			
-			//card.anchor.setTo(0.5, 0.5);
+			gameSetup();
 			
 			
 			// Input setup
 			
-			playerOne = game.add.sprite(64 * 4 - 20, 64 * 4 - 12, "red");
-			playerOne.anchor.setTo(.5, .5);
 			
 
-			gameSetup();
 		},
 		
         update: function () {

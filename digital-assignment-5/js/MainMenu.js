@@ -96,7 +96,8 @@ GameStates.makeMainMenu = function( game, shared ) {
             //game.add.sprite(0, 0, 'titlePage');
     
             //playButton = game.add.button( 303, 400, 'playButton', startGame, null, 'over', 'out', 'down');
-    
+			
+			
 			game.stage.backgroundColor = "#696969";
 	
 			drawClock();

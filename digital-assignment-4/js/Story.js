@@ -65,6 +65,7 @@ GameStates.makeGame = function( game, shared ) {
 			map.createFromObjects("objects", "tuna", "tuna", null, true, false, tuna);
 			
 			game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.05, 0.05);
+			//game.camera.follow(player);
 			
 			// Input setup
 			cursors = game.input.keyboard.createCursorKeys();
