@@ -6,7 +6,7 @@
          "height":32,
          "id":3,
          "name":"backgroundLayer",
-         "opacity":1,
+         "opacity":0.75,
          "type":"tilelayer",
          "visible":true,
          "width":60,
