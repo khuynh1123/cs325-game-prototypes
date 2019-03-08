@@ -661,6 +661,7 @@ GameStates.makeGame = function( game, shared ) {
 		over.anchor.set(0.5);
 		rollButton.inputEnabled = false;
 		helpButton.inputEnabled = false;
+		materialGroup.inputEnableChildren = false;
 		//game.state.start("PostScreen");
 	}
 	
