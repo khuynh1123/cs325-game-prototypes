@@ -3,7 +3,6 @@
 GameStates.makeMainMenu = function( game, shared ) {
 
 	var music = null;
-	var playButton = null;
 	var statsButton = null;
     var clockCircle = null;
 	var clockMinute = 0;
