@@ -28,6 +28,7 @@ GameStates.makePreloader = function( game ) {
 			game.load.atlas('backArrow', 'assets/backArrow.png', 'assets/backArrow.json');
 			game.load.atlas("rollButton", "assets/rollButton.png", "assets/rollButton.json");
 			game.load.atlas("howtoButton", "assets/howtoButton.png", "assets/howtoButton.json");
+			game.load.atlas("helpButton", "assets/helpButton.png", "assets/helpButton.json");
 			game.load.atlas("questionButton", "assets/questionButton.png", "assets/questionButton.json");
 			game.load.atlas("closeButton", "assets/closeButton.png", "assets/closeButton.json");
 			
@@ -49,6 +50,8 @@ GameStates.makePreloader = function( game ) {
 			game.load.image("materialRing", "assets/materialRing.png");
 			game.load.image("materialTwig", "assets/materialTwig.png");
 			game.load.image("materialThread", "assets/materialThread.png");
+			game.load.image("materialDagger", "assets/materialDagger.png");
+			game.load.image("materialCandle", "assets/materialCandle.png");
         },
     
         create: function () {

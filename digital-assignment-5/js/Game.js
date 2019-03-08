@@ -9,7 +9,7 @@ GameStates.makeGame = function( game, shared ) {
 	
 	// Buttons
 	var backArrow;
-	var questionButton;
+	var helpButton;
 	var rollButton;
 	var closeButton;
 	var questionButton;
@@ -20,6 +20,7 @@ GameStates.makeGame = function( game, shared ) {
 	
 	// Text
 	var infoText;
+	var clueText;
 	var textRollNumber;
 	var textCountdownNumber;	
 	
@@ -45,6 +46,8 @@ GameStates.makeGame = function( game, shared ) {
 	var materialRing;
 	var materialTwig;
 	var materialThread;
+	var materialDagger;
+	var materialCandle;
 	
 	//	3 1 1 2 1 1 3
 	//  1     1     1
@@ -65,7 +68,8 @@ GameStates.makeGame = function( game, shared ) {
 	var card;
     var roll;
 	var deck = [];
-	var materialsList = [];
+	var availableMaterials = [];
+	var collectedMaterials = [];
 	var clueList = [];
 	var choiceList = [];
 	
@@ -135,14 +139,14 @@ GameStates.makeGame = function( game, shared ) {
 			
 		// UI Setup
 		style = { font: "32px Arial", fill: "#000", align: "center" };
-		textCountdownNumber = game.add.text(700, 30, "Countdown: " + countdownTimer, style);
-		textCountdownNumber.anchor.set(1, 0);
+		textCountdownNumber = game.add.text(675, 30, "Countdown: " + countdownTimer, style);
+		textCountdownNumber.anchor.set(1, 0.5);
 		
 		backArrow = game.add.button( 750, 30, 'backArrow', quitGame, this, 'over', 'out', 'down');
 		backArrow.anchor.set(0.5, 0.5);
 		
-		questionButton = game.add.button( 750, 80, "questionButton", openInfo, this, "over", "out", "down");
-		questionButton.anchor.set(0.5, 0);
+		helpButton = game.add.button( 725, 80, "helpButton", openInfo, this, "over", "out", "down");
+		helpButton.anchor.set(0.5, 0);
 		overlay = game.add.group();
 		mapGroup = game.add.group();
 		materialGroup = game.add.group();
@@ -175,10 +179,20 @@ GameStates.makeGame = function( game, shared ) {
 		materialThread.scale.setTo(0.75);
 		materialThread.anchor.set(1, 0);
 		
+		materialDagger = game.add.sprite(700, 400, "materialDagger");
+		materialDagger.scale.setTo(0.75);
+		materialDagger.anchor.set(0);
+		
+		materialCandle = game.add.sprite(700, 400, "materialCandle");
+		materialCandle.scale.setTo(0.75);
+		materialCandle.anchor.set(1, 0);
+		
 		materialGroup.add(materialTome);
 		materialGroup.add(materialRing);
 		materialGroup.add(materialTwig);
 		materialGroup.add(materialThread);
+		materialGroup.add(materialDagger);
+		materialGroup.add(materialCandle);
 		materialGroup.alpha = 0.25;
 		
 		materialGroup.onChildInputOver.add(materialOver, this);
@@ -195,7 +209,7 @@ GameStates.makeGame = function( game, shared ) {
 	
 	function materialOut(sprite) {
 		sprite.alpha /= 4;
-		if (materialsList.includes(sprite)) {
+		if (collectedMaterials.includes(sprite)) {
 			 sprite.alpha = 4;
 		} else {
 			sprite.alpha = 1;
@@ -203,7 +217,7 @@ GameStates.makeGame = function( game, shared ) {
 	}
 	
 	function materialDown(sprite) {
-		if (materialsList.includes(sprite)) {
+		if (collectedMaterials.includes(sprite)) {
 			var index = choiceList.indexOf(sprite);
 			if (index != -1) {
 				choiceList.splice(index, 1);
@@ -622,7 +636,7 @@ GameStates.makeGame = function( game, shared ) {
 		closeButton.inputEnabled = true;
 		
 		rollButton.inputEnabled = false;
-		questionButton.inputEnabled = false;
+		helpButton.inputEnabled = false;
 	}
 	
 	function closeInfo(){
@@ -638,7 +652,7 @@ GameStates.makeGame = function( game, shared ) {
 		closeButton.inputEnabled = false;
 		rollButton.inputEnabled = true;
 		textRollNumber.alpha = 1;
-		questionButton.inputEnabled = true;
+		helpButton.inputEnabled = true;
 	}
 	
 	function gameOver() {
@@ -646,7 +660,7 @@ GameStates.makeGame = function( game, shared ) {
 		var over = game.add.text(400, 300, "GAME OVER", {font: "120px Arial", fill: "#f00", align: "center"});
 		over.anchor.set(0.5);
 		rollButton.inputEnabled = false;
-		questionButton.inputEnabled = false;
+		helpButton.inputEnabled = false;
 		//game.state.start("PostScreen");
 	}
 	

@@ -20,6 +20,7 @@ window.onload = function() {
 	game.state.add( 'MainMenu', GameStates.makeMainMenu( game, shared ) );
 	game.state.add( 'Game', GameStates.makeGame( game, shared ) );
 
+	//game.state.add("PostScreen", GameStates.makePostScreen(game, shared));
 	//	Now start the Boot state.
 	game.state.start('Boot');
 
