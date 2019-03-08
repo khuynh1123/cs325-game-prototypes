@@ -47,6 +47,8 @@ GameStates.makePreloader = function( game ) {
 			
 			game.load.image("materialTome", "assets/materialTome.png");
 			game.load.image("materialRing", "assets/materialRing.png");
+			game.load.image("materialTwig", "assets/materialTwig.png");
+			game.load.image("materialThread", "assets/materialThread.png");
         },
     
         create: function () {

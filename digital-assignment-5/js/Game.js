@@ -43,6 +43,8 @@ GameStates.makeGame = function( game, shared ) {
 	// Materials
 	var materialTome;
 	var materialRing;
+	var materialTwig;
+	var materialThread;
 	
 	//	3 1 1 2 1 1 3
 	//  1     1     1
@@ -165,8 +167,18 @@ GameStates.makeGame = function( game, shared ) {
 		materialRing.scale.setTo(0.75);
 		materialRing.anchor.set(1, 0);
 		
+		materialTwig = game.add.sprite(700, 300, "materialTwig");
+		materialTwig.scale.setTo(0.75);
+		materialTwig.anchor.set(0);
+		
+		materialThread = game.add.sprite(700, 300, "materialThread");
+		materialThread.scale.setTo(0.75);
+		materialThread.anchor.set(1, 0);
+		
 		materialGroup.add(materialTome);
 		materialGroup.add(materialRing);
+		materialGroup.add(materialTwig);
+		materialGroup.add(materialThread);
 		materialGroup.alpha = 0.25;
 		
 		materialGroup.onChildInputOver.add(materialOver, this);
