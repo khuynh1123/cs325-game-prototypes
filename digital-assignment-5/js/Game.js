@@ -3,13 +3,13 @@
 GameStates.makeGame = function( game, shared ) {
 	
 	// Integers
-	var playerTurn = 1;
-	// var countdownTimer = 30; Lower for testing
-	var countdownTimer = 10; // debug
+	var playerTurn;
+	var countdownTimer;
 	
 	// Buttons
 	var backArrow;
 	var helpButton;
+	var cluesButton;
 	var rollButton;
 	var closeButton;
 	var questionButton;
@@ -57,7 +57,10 @@ GameStates.makeGame = function( game, shared ) {
 	//  1     1     1
 	//  3 1 1 2 1 1 3
 	//
-	
+	//
+	//  
+	//
+	//           0  1  2 |3| 4  5 |6| 7  8 |9|10 11 12
 	// Each lap: 0, 1, 1, 2, 1, 1, 3, 1, 1, 2, 1, 1, 0
 	
 	
@@ -70,7 +73,8 @@ GameStates.makeGame = function( game, shared ) {
 	var deck = [];
 	var availableMaterials = [];
 	var collectedMaterials = [];
-	var clueList = [];
+	var availableClues = [];
+	var collectedClues = [];
 	var choiceList = [];
 	
 	
@@ -110,14 +114,11 @@ GameStates.makeGame = function( game, shared ) {
 	function gameSetup() {
 		UISetup();
 		materialSetup();
+		clueSetup();
 		mapSetup();
 		boardSetup();
 		playerSetup();
 		setupInfo();
-		// Shuffle setup
-		// shuffleDeck();
-		// shuffleMaterials();
-		// shuffleClues();
 	}
 	
 	function mapSetup() {
@@ -139,6 +140,7 @@ GameStates.makeGame = function( game, shared ) {
 			
 		// UI Setup
 		style = { font: "32px Arial", fill: "#000", align: "center" };
+		countdownTimer = 10;
 		textCountdownNumber = game.add.text(675, 30, "Countdown: " + countdownTimer, style);
 		textCountdownNumber.anchor.set(1, 0.5);
 		
@@ -147,6 +149,10 @@ GameStates.makeGame = function( game, shared ) {
 		
 		helpButton = game.add.button( 725, 80, "helpButton", openInfo, this, "over", "out", "down");
 		helpButton.anchor.set(0.5, 0);
+		
+		cluesButton = game.add.button( 550, 80, "cluesButton", showClues, this, "over", "out", "down");
+		cluesButton.anchor.set(0.5, 0);
+		
 		overlay = game.add.group();
 		mapGroup = game.add.group();
 		materialGroup = game.add.group();
@@ -198,6 +204,10 @@ GameStates.makeGame = function( game, shared ) {
 		materialGroup.onChildInputOver.add(materialOver, this);
 		materialGroup.onChildInputOut.add(materialOut, this);
 		materialGroup.onChildInputDown.add(materialDown, this); // Modify
+		
+		for (var material in materialGroup) {
+			availableMaterials.push(material);
+		}
 	}
 	
 	function materialOver(sprite) {
@@ -231,6 +241,19 @@ GameStates.makeGame = function( game, shared ) {
 		
 	}
 	
+	function clueSetup() {
+		availableClues.push("Something with wood");
+		availableClues.push("Something bound");
+		availableClues.push("Something metal");
+		availableClues.push("Something flammable");
+		availableClues.push("Something flimsy");
+		availableClues.push("Something round");
+		availableClues.push("Not round");
+		availableClues.push("Not flimsy");
+		availableClues.push("Bigger than it seems");
+		availableClues.push("Smooth to the touch");
+	}
+	
 	function playerSetup() {
 		playerOne = game.add.sprite(64 * 4, 64 * 4 + 4, "red");
 		playerOne.anchor.setTo(1);
@@ -240,6 +263,8 @@ GameStates.makeGame = function( game, shared ) {
 		playerTwo = game.add.sprite(64 * 3, 64 * 3, "blue");
 		playerTwo.anchor.setTo(0);
 		playerTwoIndex = 0;
+		
+		playerTurn = 1;
 		
 		mapGroup.add(playerOne);
 		mapGroup.add(playerTwo);
@@ -253,7 +278,19 @@ GameStates.makeGame = function( game, shared ) {
 		textRollNumber.destroy();
 		textRollNumber = game.add.text(150, 500, "Player " + playerTurn + " rolled a " + roll + ".", {font: "32px Arial", fill: "#000", align: "center"});
 		
-		if (playerTurn == 1) {
+		updatePlayer(playerTurn);
+		playerTurn == 1 ? playerTurn = 2 : playerTurn = 1;
+	}
+	
+	function updatePlayer(number) {
+		var x = 0;
+		var y = 0;
+		if (number == 1) {
+			
+			if ((playerOneIndex % 12) + roll > 3 || ((playerOneIndex % 12) + roll > 9)) {
+				
+			}
+			
 			if (playerOneIndex + roll > board.length) {
 				playerOneIndex = playerOneIndex + roll - board.length;
 				countDown();
@@ -263,28 +300,8 @@ GameStates.makeGame = function( game, shared ) {
 				}
 				playerOneIndex += roll;
 			}
-		}
-		
-		if (playerTurn == 2) {
-			if (playerTwoIndex + roll > board.length) {
-				playerTwoIndex = playerTwoIndex + roll - board.length;
-				countDown();
-			} else {
-				if ((playerTwoIndex % 12) + roll > 12 || (playerTwoIndex % 12 == 0 && !playerTwoIndex == 0)) {
-					countDown();
-				}
-				playerTwoIndex += roll;
-			}
-		}
-		
-		updatePlayer(playerTurn);
-		playerTurn == 1 ? playerTurn = 2 : playerTurn = 1;
-	}
-	
-	function updatePlayer(number) {
-		var x = 0;
-		var y = 0;
-		if (number == 1) {
+			
+			
 			switch (playerOneIndex) {
 				
 				case 1:
@@ -433,11 +450,24 @@ GameStates.makeGame = function( game, shared ) {
 					playerOne.x = 64 * 4;
 					playerOne.y = 64 * 4 + 4;
 			}
-			
-			
 		}
 		
-		if (number == 2) {
+		if (number == 2) {			
+			
+			if (playerTwoIndex + roll > board.length) {
+				playerTwoIndex = playerTwoIndex + roll - board.length;
+				countDown();
+			} else {
+				if ((playerTwoIndex % 12) + roll > 12 || (playerTwoIndex % 12 == 0 && !playerTwoIndex == 0)) {
+					countDown();
+				}
+				playerTwoIndex += roll;
+			}
+			
+			
+			
+			
+			
 			switch (playerTwoIndex) {
 				
 				case 1:
@@ -586,13 +616,17 @@ GameStates.makeGame = function( game, shared ) {
 					playerTwo.x = 64 * 3;
 					playerTwo.y = 64 * 3;
 			}
-			
-			
-		}
-		
-		
+		}	
 	}
     
+	function addMaterial() {
+		
+	}
+	
+	function addClue() {
+		
+	}
+	
 	function countDown() {
 		countdownTimer--;
 		textCountdownNumber.setText("Countdown " + countdownTimer);
@@ -621,6 +655,14 @@ GameStates.makeGame = function( game, shared ) {
 		infoText.alpha = 0;
 		closeButton = game.add.button( 700, 50, "closeButton", closeInfo, null, "over", "out", "down");
 		closeButton.alpha = 0;			
+	}
+	
+	function openClues() {
+		
+	}
+	
+	function showClues() {
+		
 	}
 	
 	function openInfo() {
@@ -677,8 +719,8 @@ GameStates.makeGame = function( game, shared ) {
     
         create: function () {
 			
-			gameSetup();
 			
+			gameSetup();
 			
 			// Input setup
 			

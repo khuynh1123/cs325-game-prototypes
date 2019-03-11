@@ -29,6 +29,7 @@ GameStates.makePreloader = function( game ) {
 			game.load.atlas("rollButton", "assets/rollButton.png", "assets/rollButton.json");
 			game.load.atlas("howtoButton", "assets/howtoButton.png", "assets/howtoButton.json");
 			game.load.atlas("helpButton", "assets/helpButton.png", "assets/helpButton.json");
+			game.load.atlas("cluesButton", "assets/cluesButton.png", "assets/cluesButton.json");
 			game.load.atlas("questionButton", "assets/questionButton.png", "assets/questionButton.json");
 			game.load.atlas("closeButton", "assets/closeButton.png", "assets/closeButton.json");
 			
