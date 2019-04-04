@@ -1,0 +1,34 @@
+{"frames": [
+
+{
+	"filename": "down",
+	"frame": {"x":0,"y":70,"w":156,"h":35},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":35},
+	"sourceSize": {"w":156,"h":35}
+},
+{
+	"filename": "out",
+	"frame": {"x":0,"y":35,"w":156,"h":35},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":35},
+	"sourceSize": {"w":156,"h":35}
+},
+{
+	"filename": "over",
+	"frame": {"x":0,"y":0,"w":156,"h":35},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":35},
+	"sourceSize": {"w":156,"h":35}
+}],
+"meta": {
+	"version": "1.0",
+	"image": "howtoButton.png",
+	"format": "RGBA8888",
+	"size": {"w":156,"h":35},
+	"scale": "1"
+}
+}
