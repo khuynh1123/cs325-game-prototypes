@@ -1,3 +1,5 @@
 .DS_Store
 Thumbs.db
 *~
+online-example/node_modules/
+online-test/node_modules/
