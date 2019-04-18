@@ -70,8 +70,11 @@ GameStates.makeGame = function( game, shared ) {
 		// UI Setup
 		style = { font: "32px Arial", fill: "#000", align: "center" };
 		
+		/*
 		backArrow = game.add.button( 750, 30, 'backArrow', quitGame, this, 'over', 'out', 'down');
 		backArrow.anchor.set(0.5, 0.5);
+		*/
+		
 		
 		helpButton = game.add.button( 725, 80, "helpButton", openInfo, this, "over", "out", "down");
 		helpButton.anchor.set(0.5, 0);
@@ -122,13 +125,9 @@ GameStates.makeGame = function( game, shared ) {
 	function gameOver() {
 		shared.loseGame = true;
 		var over = game.add.text(400, 300, "GAME OVER", {font: "120px Arial", fill: "#f00", align: "center"});
-		over.anchor.set(0.5);
-		rollButton.inputEnabled = false;
-		helpButton.inputEnabled = false;
-		materialGroup.inputEnableChildren = false;
-		//game.state.start("PostScreen");
 	}
 	
+	/*
 	function quitGame() {
 
         //  Here you should destroy anything you no longer need.
@@ -137,7 +136,7 @@ GameStates.makeGame = function( game, shared ) {
         //  Then let's go back to the main menu.
         game.state.start('MainMenu');
     }
-	
+	*/
 	
     return {
 		
