@@ -2,13 +2,11 @@
 
 GameStates.makeMainMenu = function( game, shared ) {
 
+	var logo = null;
+
+
 	var music = null;
 	var statsButton = null;
-    var clockCircle = null;
-	var clockMinute = 0;
-	var clockSecond = 0;
-	var clockMinuteLine = null;
-	var clockSecondLine = null;
 	
 	
 	var newGameButton = null;
@@ -30,64 +28,6 @@ GameStates.makeMainMenu = function( game, shared ) {
         game.state.start('Game');
 
     }
-	
-	function drawClock() {
-			clockCircle = game.add.graphics(0, 0);
-			clockCircle.beginFill(0xdff6f5, 1);
-			clockCircle.drawCircle(200, 500, 400);
-			clockCircle.endFill();
-			clockCircle.beginFill(0xffffff, 1);
-			clockCircle.drawCircle(200, 500, 380);
-			clockCircle.endFill();
-			
-			
-			
-			// Clock Minute Line
-			clockMinute = 0;
-			clockMinuteLine = game.add.graphics(0, 0);
-			clockMinuteLine.beginFill(0x000000);
-			clockMinuteLine.lineStyle(10, 0x000000, 0);
-			clockMinuteLine.lineTo(200, 500);
-			clockMinuteLine.moveTo(200 - (Math.sin(clockMinute) * 100), 500 - (Math.cos(clockMinute) * 100));
-			clockMinuteLine.endFill();
-			
-
-			// Clock Second Line
-			clockSecond = 0;
-			clockSecondLine = game.add.graphics(0, 0);
-			clockSecondLine.beginFill(0x000000);
-			clockSecondLine.lineStyle(8, 0x000000, 0);
-			clockSecondLine.lineTo(200, 500);
-			clockSecondLine.moveTo(200 - (Math.sin(clockSecond) * 140), 500 - (Math.cos(clockSecond) * 140));
-			clockSecondLine.endFill();
-			
-	}
-	
-	function updateClock() {
-		
-		clockSecond++;
-		if (clockSecond > 59) {
-			clockSecond = 0;
-			clockMinute++;
-			
-			if (clockMinute > 59) {
-				clockMinute = 0;
-			}
-		}
-		clockMinuteLine.clear();
-		clockMinuteLine.lineStyle(10, 0x000000, 1);
-		clockMinuteLine.lineTo(200, 500);
-		clockMinuteLine.moveTo(200 + (Math.sin(clockMinute / 10) * 100), 500 - (Math.cos(clockMinute / 10) * 100));
-		
-		clockSecondLine.clear();
-		clockSecondLine.lineStyle(6, 0x000000, 1);
-		clockSecondLine.lineTo(200, 500);
-		clockSecondLine.moveTo(200 + (Math.sin(clockSecond / 10) * 140), 500 - (Math.cos(clockSecond / 10) * 140));
-		
-		
-//console.log("Time is: " + clockMinute + " minutes and " + clockSecond + " seconds.");
-		//console.log("Angles are: : Minute " + Math.sin(clockMinute * 6) + "  and Second " + Math.sin(clockSecond * 6) + ".");
-	}
     
 	
 	function openInfo() {
@@ -122,15 +62,18 @@ GameStates.makeMainMenu = function( game, shared ) {
 	
     return {
     
+		preload: function () {
+		},
+		
         create: function () {
     
             //music = game.add.audio('titleMusic');
             //music.play();
-    		
+			logo = game.add.sprite(100, 0, "logo");
+			logo.scale.setTo(0.25);
+    		logo.anchor.set(0.25, 0.25);
 			game.stage.backgroundColor = "#696969";
 	
-			drawClock();
-			game.time.events.loop(Phaser.Timer.SECOND, updateClock, this);
 			
 			newGameButton = game.add.button ( 525, 50, "newGameButton", startGame, null, "over", "out", "down");
 			howtoButton = game.add.button( 525, 100, "howtoButton", openInfo, null, "over", "out", "down");

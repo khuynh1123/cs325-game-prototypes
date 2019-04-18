@@ -23,36 +23,18 @@ GameStates.makePreloader = function( game ) {
             //	Here we load the rest of the assets our game needs.
             //	As this is just a Project Template I've not provided these assets, swap them for your own.
             //	+ lots of other required assets here
-            //game.load.image( 'logo', 'assets/phaser.png' );
+            game.load.image("logo", "assets/pawsofflogo.png");
 			game.load.atlas("newGameButton", "assets/newGameButton.png", "assets/newGameButton.json");
 			game.load.atlas('backArrow', 'assets/backArrow.png', 'assets/backArrow.json');
 			game.load.atlas("rollButton", "assets/rollButton.png", "assets/rollButton.json");
 			game.load.atlas("howtoButton", "assets/howtoButton.png", "assets/howtoButton.json");
 			game.load.atlas("helpButton", "assets/helpButton.png", "assets/helpButton.json");
-			game.load.atlas("cluesButton", "assets/cluesButton.png", "assets/cluesButton.json");
 			game.load.atlas("questionButton", "assets/questionButton.png", "assets/questionButton.json");
 			game.load.atlas("closeButton", "assets/closeButton.png", "assets/closeButton.json");
 			
 			game.load.image("infoBox", "assets/infoBox.png");
 			
 			
-			game.load.image("red", "assets/red.png", 32, 32);
-			game.load.image("blue", "assets/blue.png", 32, 32);
-			game.load.image("yellow", "assets/yellow.png", 32, 32);
-			game.load.image("green", "assets/green.png", 32, 32);
-			game.load.image("cyan", "assets/cyan.png", 32, 32);
-			game.load.image("purple", "assets/purple.png", 32, 32);
-			game.load.tilemap("map_demo", "assets/demo.json", null, Phaser.Tilemap.TILED_JSON);
-			game.load.image("maptiles", "assets/map_tiles.png");
-			game.load.image("maparrows", "assets/map_arrows.png");
-			
-			
-			game.load.image("materialTome", "assets/materialTome.png");
-			game.load.image("materialRing", "assets/materialRing.png");
-			game.load.image("materialTwig", "assets/materialTwig.png");
-			game.load.image("materialThread", "assets/materialThread.png");
-			game.load.image("materialDagger", "assets/materialDagger.png");
-			game.load.image("materialCandle", "assets/materialCandle.png");
         },
     
         create: function () {

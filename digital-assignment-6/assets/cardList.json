@@ -1,0 +1,65 @@
+{"cards": [
+	{
+		"name": "Ice Cream",
+		"image": "",
+		"score": -1,
+		"effect": "Brain Freeze!",
+		"description": "The conveyor belt does not refill after this round"
+	},
+	{
+		"name": "Chocolate Cornet",
+		"image": "",
+		"score": 2, 
+		"effect": "Round & Round We Go",
+		"description": "Each player passes one card to the left"
+	},
+	{
+		"name": "Shortbread",
+		"image": "",
+		"score": 1,
+		"effect": "",
+		"description": ""
+	},
+	{
+		"name": "Chocolate Chip",
+		"image": "",
+		"score": 2,
+		"effect": "",
+		"description": ""
+	},
+	{
+		"name": "Macaron",
+		"image": "",
+		"score": 3,
+		"effect": "",
+		"description": ""
+	},
+	{
+		"name": "Donut",
+		"image": "",
+		"score": 1,
+		"effect": "",
+		"description": "+3 each if you have more donuts than the most waffles"
+	},
+	{
+		"name": "Waffle",
+		"image": "",
+		"score": -2,
+		"effect": "",
+		"description": "+4 instead for each pair of Maple Syrup and Waffle"
+	},
+	{
+		"name": "Pancake",
+		"image": "",
+		"score": "n",
+		"effect": "One Too Many",
+		"description": "Collecting four or more Pancake cards nets you zero points"
+	},
+	{
+		"name": "Default",
+		"image": "",
+		"score": 0,
+		"effect": "",
+		"description": ""
+	}
+]}
