@@ -34,13 +34,13 @@ GameStates.makeMainMenu = function( game, shared ) {
 	function openInfo() {
 		openTween = game.add.tween(infoBox.scale).to({x: 160, y: 200}, 1000, Phaser.Easing.Exponential.Out, true);
 		openTween.onComplete.add(showInfo, this);
-		infoBox.alpha = 1;
+		infoBox.visible = true;
 	}
 	
 	function showInfo() {
 		
-		infoText.alpha = 1;
-		closeButton.alpha = 1;
+		infoText.visible = true;
+		closeButton.visible = true;
 		closeButton.inputEnabled = true;
 		
 		newGameButton.inputEnabled = false;
@@ -53,9 +53,9 @@ GameStates.makeMainMenu = function( game, shared ) {
 		}
 
 		closeTween = game.add.tween(infoBox.scale).to({x: 0, y: 0}, 500, Phaser.Easing.Exponential.In, true);
-		infoBox.apha = 0;
-		infoText.alpha = 0;
-		closeButton.alpha = 0;
+		infoBox.visible = false;
+		infoText.visible = false;
+		closeButton.visible = false;
 		closeButton.inputEnabled = false;
 		newGameButton.inputEnabled = true;
 		howtoButton.inputEnabled = true;
@@ -74,7 +74,7 @@ GameStates.makeMainMenu = function( game, shared ) {
 			logo = game.add.sprite(100, 0, "logo");
 			logo.scale.setTo(0.25);
     		logo.anchor.set(0.25, 0.25);
-			game.stage.backgroundColor = "#696969";
+			game.stage.backgroundColor = "#7d7071";
 	
 			
 			newGameButton = game.add.button ( 50, 450, "newGameButton", startGame, null, "over", "out", "down");
@@ -83,12 +83,12 @@ GameStates.makeMainMenu = function( game, shared ) {
 			howtoButton.anchor.set(1, 0);
 			
 			infoBox = game.add.sprite(0, 0, "infoBox");
-			infoBox.alpha = 0;
+			infoBox.visible = false;
 			infoText = game.add.text(25, 50, texts.infoText, { font: "32px Arial", fill: "#000", align: "left" });
 			infoText.anchor.set(0);
-			infoText.alpha = 0;
+			infoText.visible = false;
 			closeButton = game.add.button( 700, 50, "closeButton", closeInfo, null, "over", "out", "down");
-			closeButton.alpha = 0;
+			closeButton.visible = false;
 			
         },
     

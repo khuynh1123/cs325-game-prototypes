@@ -7,7 +7,7 @@ GameStates.makeGame = function( game, shared ) {
 	
 	
 	// Integers
-	var playerTurn;
+	var roundNumber;
 	
 	// Buttons
 	var backArrow;
@@ -21,9 +21,10 @@ GameStates.makeGame = function( game, shared ) {
 	var itemBox;
 	
 	// Text
+	var texts;
 	var infoText;
-	var clueText;
-	var textRollNumber;
+	var roundText;
+	//var textRollNumber;
 	
 	// Groups
 	var overlay;
@@ -32,7 +33,10 @@ GameStates.makeGame = function( game, shared ) {
 	var openTween;
 	var closeTween;
 	
+	// Lists
 	var player_list = [];
+	var deck = [];
+	var board = [];
 	
 	
 	// Misc Variables
@@ -43,26 +47,32 @@ GameStates.makeGame = function( game, shared ) {
     var roll;
 	
 	
-	function cardSetup() {
-		
+	function Card(id) {
+		return {
+			name: cards.cards[id].name,
+			image: cards.cards[id].image,
+			score: cards.cards[id].score,
+			effect: cards.cards[id].effect,
+			description: cards.cards[id].description
+		};
 	}
 	
-	function Card() {
-		
-	}
-	
-	function Player( ) {
-		
+	function Player(id) {
+		return {
+			id: id,
+			name: "Player " + id,
+			hand: []
+		};
 	}
 	
 	
     
 	function gameSetup() {
 		UISetup();
-	}
-	
-	function boardSetup() {
-		
+		setupInfo();
+		setupDeck();
+		setupPlayer();
+		setupBoard();
 	}
 
 	function UISetup() {
@@ -73,57 +83,84 @@ GameStates.makeGame = function( game, shared ) {
 		/*
 		backArrow = game.add.button( 750, 30, 'backArrow', quitGame, this, 'over', 'out', 'down');
 		backArrow.anchor.set(0.5, 0.5);
+		*/		
+		
+		roundNumber = 0;
+		roundText = game.add.text( 775, 10, "Round: " + roundNumber, {font: "48px Arial", fill: "#fff", align: "center"});
+		roundText.anchor.set(1, 0);
+		
+		helpButton = game.add.button( 775, 80, "helpButton", openInfo, this, "over", "out", "down");
+		helpButton.anchor.set(1, 0);	
+		
+		/*
+		textRollNumber = game.add.text(250, 500, "", {font: "1px Arial", fill: "#d6d6d6", align: "center" });
+		textRollNumber.anchor.set(0, 0.5);	
 		*/
 		
-		
-		helpButton = game.add.button( 725, 80, "helpButton", openInfo, this, "over", "out", "down");
-		helpButton.anchor.set(0.5, 0);
-			
-		
-		
-		textRollNumber = game.add.text(250, 500, "", {font: "1px Arial", fill: "#d6d6d6", align: "center" });
-		textRollNumber.anchor.set(0, 0.5);		
+		overlay = game.add.group();		
 	}
 	
 	
-	function shuffleDeck() {
+	function setupDeck() {
+		for (var cardsIndex = 0; cardsIndex < cards.cards.length; cardsIndex++) {
+			for (var numCard = 0; numCard < cards.cards[cardsIndex].startNumber; numCard++) {
+				deck.push(new Card(cardsIndex));
+			}
+		}
+		
+		var i, j, k;
+		
+		for (i = deck.length - 1; i > 0; i--) {
+			j = Math.floor(Math.random() * (i + 1));
+			k = deck[i];
+			deck[i] = deck[j];
+			deck[j] = k;
+		}
+	}
+	
+	function setupPlayer() {
+		for (var i = 0; i < 4; i++) {
+			player_list = new Player(i);
+			//player_list[i].hand.append(deck.pop());
+		}
+	}
+	
+	function setupBoard() {
+		while (board.length < 8) {
+			board.push(deck.pop());
+		}
 		
 	}
+	
 	
 	function setupInfo() {
 		infoBox = game.add.sprite(0, 0, "infoBox");
 		infoBox.anchor.setTo(0);
-		infoText = game.add.text(25, 50, "\n\
-		Stop the end of the world as we know it!                \n\
-		Collect materials to create the catalyst to\n\
-		stop the portal from opening.  Obtain clues to\n\
-		find the correct combination of three materials\n\
-		before the countdown reaches zero!\n\
-		", { font: "32px Arial", fill: "#000", align: "left"});
+		infoText = game.add.text(25, 50, texts.infoText, { font: "32px Arial", fill: "#000", align: "left"});
 		
-		infoBox.alpha = 0;
+		infoBox.visible = false;
 		overlay.add(infoBox);
 		overlay.add(infoText);
 		game.world.bringToTop(overlay);
 		infoText.anchor.set(0);
-		infoText.alpha = 0;
+		infoText.visible = false;
 		closeButton = game.add.button( 700, 50, "closeButton", closeInfo, null, "over", "out", "down");
-		closeButton.alpha = 0;	
+		closeButton.visible = false;	
 	}
 	
 	function openInfo() {
-		infoBox.alpha = 1;
+		infoBox.visible = true;
 		openTween = game.add.tween(infoBox.scale).to({x: 160, y: 200}, 1000, Phaser.Easing.Exponential.Out, true);
-		textRollNumber.alpha = 0;
+		//textRollNumber.visible = false;
 		openTween.onComplete.add(showInfo, this);
 	}
 	
 	function showInfo() {
-		infoText.alpha = 1;
-		closeButton.alpha = 1;
+		infoText.visible = true;
+		closeButton.visible = true;
 		closeButton.inputEnabled = true;
 		
-		rollButton.inputEnabled = false;
+		//rollButton.inputEnabled = false;
 		helpButton.inputEnabled = false;
 	}
 	
@@ -134,12 +171,12 @@ GameStates.makeGame = function( game, shared ) {
 
 		closeTween = game.add.tween(infoBox.scale).to({x: 0, y: 0}, 500, Phaser.Easing.Exponential.In, true);
 		
-		infoBox.alpha = 0;
-		infoText.alpha = 0;
-		closeButton.alpha = 0;
+		infoBox.visible = false;
+		infoText.visible = false;
+		closeButton.visible = false;
 		closeButton.inputEnabled = false;
-		rollButton.inputEnabled = true;
-		textRollNumber.alpha = 1;
+		//rollButton.inputEnabled = true;
+		//textRollNumber.visible = true;
 		helpButton.inputEnabled = true;
 	}
 	
@@ -162,18 +199,16 @@ GameStates.makeGame = function( game, shared ) {
     return {
 		
 		preload: function () {
+			texts = game.cache.getJSON("textJSON");
 		},
     
         create: function () {
 			cards = game.cache.getJSON("cardListJSON");
 			
-			console.log(cards.cards);
-			
 			gameSetup();
 			
-			console.log(cards.cards[1].image);
-			console.log(cards.cards[4].image == "");
-			console.log(cards.cards[1].image === null);
+			//console.log(cards.cards[1].image);
+			//console.log(cards.cards[4].image == "");
 
 		},
 		

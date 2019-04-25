@@ -4,83 +4,95 @@
 		"image": "IceCreamCard",
 		"score": -1,
 		"effect": "Brain Freeze!",
-		"description": "The conveyor belt does not refill after this round"
+		"description": "The conveyor belt does not refill after this round",
+		"startNumber": 3
 	},
 	{
 		"name": "Chocolate Cornet",
 		"image": "ChocolateCornetCard",
 		"score": 2, 
 		"effect": "Round & Round We Go",
-		"description": "Each player passes one card to the left"
+		"description": "Each player passes one card to the left",
+		"startNumber": 3
 	},
 	{
 		"name": "Shortbread",
-		"image": null,
+		"image": "",
 		"score": 1,
-		"effect": null,
-		"description": null
+		"effect": "",
+		"description": "",
+		"startNumber": 6
 	},
 	{
 		"name": "Chocolate Chip",
-		"image": null,
+		"image": "",
 		"score": 2,
-		"effect": null,
-		"description": null
+		"effect": "",
+		"description": "",
+		"startNumber": 6
 	},
 	{
 		"name": "Macaron",
-		"image": null,
+		"image": "",
 		"score": 3,
-		"effect": null,
-		"description": null
+		"effect": "",
+		"description": "",
+		"startNumber": 6
 	},
 	{
 		"name": "Donut",
-		"image": null,
+		"image": "",
 		"score": 1,
-		"effect": null,
-		"description": "+3 each if you have more donuts than the most waffles"
+		"effect": "",
+		"description": "+3 each if you have more donuts than the most waffles",
+		"startNumber": 6
 	},
 	{
 		"name": "Waffle",
-		"image": null,
+		"image": "",
 		"score": -2,
-		"effect": null,
-		"description": "+4 instead for each pair of Maple Syrup and Waffle"
+		"effect": "",
+		"description": "+4 instead for each pair of Maple Syrup and Waffle",
+		"startNumber": 6
 	},
 	{
 		"name": "Pancake",
-		"image": null,
+		"image": "",
 		"score": "n",
 		"effect": "One Too Many",
-		"description": "Collecting four or more Pancake cards nets you zero points"
+		"description": "Collecting four or more Pancake cards nets you zero points",
+		"startNumber": 6
 	},	
 	{
 		"name": "Tiramisu",
 		"image": "TiramisuCard",
 		"score": -2,
 		"effect": "Sugar Song & Bitter Step",
-		"description": "Discard one card from anyone"
+		"description": "Discard one card from anyone",
+		"startNumber": 2
 	},
 	{
 		"name": "Milk Bubble Tea",
-		"image": null,
+		"image": "",
 		"score": 1,
 		"effect": "Spill the Tea",
-		"description": "Trade one card with another player"
+		"description": "Trade one card with another player",
+		"startNumber": 4
 	},
 	{
 		"name": "Chocolate Syrup",
-		"image": null,
+		"image": "",
 		"score": 1,
 		"effect": "Sticky Situation",
-		"description": "+1 max pancake per syrup owned"
+		"description": "+1 max pancake per syrup owned",
+		"startNumber": 3
 	},
 	{
 		"name": "Maple Syrup",
-		"image": null,
+		"image": "",
 		"score": -1,
-		"effect": null,
-		"description": "-1 points to everyone else's pancakes"
+		"effect": "",
+		"description": "-1 points to everyone else's pancakes",
+		"startNumber": 3
 	}
 ]}
