@@ -90,6 +90,27 @@ GameStates.makeGame = function( game, shared ) {
 		
 	}
 	
+	function setupInfo() {
+		infoBox = game.add.sprite(0, 0, "infoBox");
+		infoBox.anchor.setTo(0);
+		infoText = game.add.text(25, 50, "\n\
+		Stop the end of the world as we know it!                \n\
+		Collect materials to create the catalyst to\n\
+		stop the portal from opening.  Obtain clues to\n\
+		find the correct combination of three materials\n\
+		before the countdown reaches zero!\n\
+		", { font: "32px Arial", fill: "#000", align: "left"});
+		
+		infoBox.alpha = 0;
+		overlay.add(infoBox);
+		overlay.add(infoText);
+		game.world.bringToTop(overlay);
+		infoText.anchor.set(0);
+		infoText.alpha = 0;
+		closeButton = game.add.button( 700, 50, "closeButton", closeInfo, null, "over", "out", "down");
+		closeButton.alpha = 0;	
+	}
+	
 	function openInfo() {
 		infoBox.alpha = 1;
 		openTween = game.add.tween(infoBox.scale).to({x: 160, y: 200}, 1000, Phaser.Easing.Exponential.Out, true);
@@ -141,7 +162,6 @@ GameStates.makeGame = function( game, shared ) {
     return {
 		
 		preload: function () {
-			game.load.json("cardListJSON", "assets/cardList.json");
 		},
     
         create: function () {
@@ -149,7 +169,11 @@ GameStates.makeGame = function( game, shared ) {
 			
 			console.log(cards.cards);
 			
-			gameSetup();			
+			gameSetup();
+			
+			console.log(cards.cards[1].image);
+			console.log(cards.cards[4].image == "");
+			console.log(cards.cards[1].image === null);
 
 		},
 		

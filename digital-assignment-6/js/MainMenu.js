@@ -1,7 +1,8 @@
 "use strict";
 
 GameStates.makeMainMenu = function( game, shared ) {
-
+	
+	var texts;
 	var logo = null;
 
 
@@ -63,6 +64,7 @@ GameStates.makeMainMenu = function( game, shared ) {
     return {
     
 		preload: function () {
+			texts = game.cache.getJSON("textJSON");
 		},
 		
         create: function () {
@@ -75,18 +77,14 @@ GameStates.makeMainMenu = function( game, shared ) {
 			game.stage.backgroundColor = "#696969";
 	
 			
-			newGameButton = game.add.button ( 525, 50, "newGameButton", startGame, null, "over", "out", "down");
-			howtoButton = game.add.button( 525, 100, "howtoButton", openInfo, null, "over", "out", "down");
+			newGameButton = game.add.button ( 50, 450, "newGameButton", startGame, null, "over", "out", "down");
+			newGameButton.anchor.set(0);
+			howtoButton = game.add.button( 750, 450, "howtoButton", openInfo, null, "over", "out", "down");
+			howtoButton.anchor.set(1, 0);
 			
 			infoBox = game.add.sprite(0, 0, "infoBox");
 			infoBox.alpha = 0;
-			infoText = game.add.text(25, 50, "\
-			Stop the end of the world as we know it!\n\
-			Collect materials to create the catalyst to\n\
-			stop the portal from opening.  Obtain clues to\n\
-			find the correct combination of three materials\n\
-			before the countdown reaches zero!\
-			", { font: "32px Arial", fill: "#000", align: "left" });
+			infoText = game.add.text(25, 50, texts.infoText, { font: "32px Arial", fill: "#000", align: "left" });
 			infoText.anchor.set(0);
 			infoText.alpha = 0;
 			closeButton = game.add.button( 700, 50, "closeButton", closeInfo, null, "over", "out", "down");

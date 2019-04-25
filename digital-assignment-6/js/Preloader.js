@@ -24,17 +24,19 @@ GameStates.makePreloader = function( game ) {
             //	As this is just a Project Template I've not provided these assets, swap them for your own.
             //	+ lots of other required assets here
             game.load.image("logo", "assets/pawsofflogo.png");
-			game.load.atlas("newGameButton", "assets/newGameButton.png", "assets/newGameButton.json");
-			game.load.atlas('backArrow', 'assets/backArrow.png', 'assets/backArrow.json');
-			game.load.atlas("rollButton", "assets/rollButton.png", "assets/rollButton.json");
-			game.load.atlas("howtoButton", "assets/howtoButton.png", "assets/howtoButton.json");
-			game.load.atlas("helpButton", "assets/helpButton.png", "assets/helpButton.json");
-			game.load.atlas("questionButton", "assets/questionButton.png", "assets/questionButton.json");
-			game.load.atlas("closeButton", "assets/closeButton.png", "assets/closeButton.json");
+			game.load.atlas("newGameButton", "assets/buttons/newGameButton.png", "assets/buttons/newGameButton.json");
+			game.load.atlas('backArrow', 'assets/buttons/backArrow.png', 'assets/buttons/backArrow.json');
+			game.load.atlas("rollButton", "assets/buttons/rollButton.png", "assets/buttons/rollButton.json");
+			game.load.atlas("howtoButton", "assets/buttons/howtoButton.png", "assets/buttons/howtoButton.json");
+			game.load.atlas("helpButton", "assets/buttons/helpButton.png", "assets/buttons/helpButton.json");
+			game.load.atlas("questionButton", "assets/buttons/questionButton.png", "assets/buttons/questionButton.json");
+			game.load.atlas("closeButton", "assets/buttons/closeButton.png", "assets/buttons/closeButton.json");
 			
 			game.load.image("infoBox", "assets/infoBox.png");
 			
 			
+			game.load.json("cardListJSON", "assets/cardList.json");
+			game.load.json("textJSON", "assets/texts.json");
         },
     
         create: function () {
